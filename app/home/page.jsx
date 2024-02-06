@@ -14,7 +14,7 @@ export default function page() {
     <div>
       <div className="h-screen">
         <Image
-          id="front-img"
+          className="max-w-full max-h-full mb-8"
           src={frontImg}
           alt="Description of the front image"
         />
@@ -27,7 +27,7 @@ export default function page() {
         </div>
       </div>
 
-      <div className="home-video-container mt-5 flex ">
+      <div className="flex flex-col lg:flex-row px-28 lg:pt-5 home-video-container ">
         {/* <CldVideoPlayer
        
        src={"./tmt-video.mp4"}
@@ -43,16 +43,16 @@ export default function page() {
           height="auto"
         /> */}
 
-        <video className="mt-2 mb-auto" controls width={"643px"}>
+        <video className="lg:mt-2 mb-auto" controls width={"643px"}>
           <source src={frontVideo} type="video/mp4" />
         </video>
         <Image
-          className="partner-with-us"
+          className="max-w-95 lg:mt-0 mt-6 lg:ml-15"
           src={partnerWithUs}
           alt="Description of the front image"
         />
       </div>
-      <div className="text-center pt-24 pb-4 text-gray-600 w-full border">
+      <div className="text-center pt-24 pb-4 text-gray-600 w-full ">
         <div className="line-container inline-block relative">
           <span className="text-3xl font-bold ">LATEST NEWS & UPDATES</span>
         </div>

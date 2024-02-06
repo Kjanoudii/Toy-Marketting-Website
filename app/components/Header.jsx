@@ -8,7 +8,7 @@ import tmtLogo from "../assets/tmt-logo.png";
 const navLinks = [
   {
     name: "HOME",
-    href: "/home",
+    href: "/",
   },
   {
     name: "ABOUT US",
@@ -35,22 +35,18 @@ export default function Header() {
         <div className="container flex items-center justify-between mx-0">
           <div className="text-sm pl-24 mb-5 text-gray-900">
             <Image
-              className="custom-img"
+              className="custom-img pb-4 lg:pb-0  "
               src={tmtLogo}
               alt="Description of the front image"
             />
           </div>
-          <div
-            className="flex space-x-7
-             pt-11 pr-16 mr-3 leading-tight text-gray-700 "
-          >
+          <div className="flex flex-col pb-12 xl:pb-0 lg:flex-row lg:space-x-7 pt-11 pr-4 lg:pr-16 lg:mr-3 lg:leading-tight text-gray-700">
             {navLinks.map((item, index) => {
-              const isActive = pathName.startsWith(item.href);
-
+              const isActive = pathName === item.href;
               return (
                 <Link
                   key={index}
-                  className={`hover:text-blue-600 ${
+                  className={`block lg:inline-block hover:text-blue-600 ${
                     isActive ? "text-blue-600" : ""
                   }`}
                   href={item.href}

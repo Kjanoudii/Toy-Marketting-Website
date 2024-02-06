@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -12,6 +13,16 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      margin:{
+         "15":"3.75rem"
+      },
+      maxWidth:{
+        "95":"23.75rem"
+      },
+      maxHeight:{
+        "95":"23.75rem"
+      }
+      
     },
   },
   plugins: [],

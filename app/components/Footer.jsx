@@ -7,8 +7,8 @@ import ContactDetails from "./ContactDetails";
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="footer-container">
+    <footer className="">
+      <div className=" footer-container">
         <div className="flex justify-between">
           <section>
             <h2>SUBSCRIBE TO OUR MAILING LIST </h2>
@@ -42,13 +42,13 @@ export default function Footer() {
             </p>
           </section>
           <section>
-            <div className="p-0 h-12 m-0 flex items-center justify-center ">
+            <div className="p-0 lg:h-12 m-0 flex items-center justify-center ">
               <input
                 className="bg-transparent py-2 px-4 mb-1 placeholder-gray-500 focus:outline-none"
                 placeholder="Your Email Here"
               />
 
-              <button className="w-32 h-full bg-blue-600 text-white px-4 py-2 text-base">
+              <button className="lg:w-32 h-12 bg-blue-600 text-white px-4 py-2 text-base">
                 SUBSCRIBE
               </button>
             </div>

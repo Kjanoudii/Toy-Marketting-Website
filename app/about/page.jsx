@@ -3,7 +3,13 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useState, useEffect } from "react";
-import { images, tradeChannels, socialBox, variant1, variant2 } from "../data/data.js";
+import {
+  images,
+  tradeChannels,
+  socialBox,
+  variant1,
+  variant2,
+} from "../data/data.js";
 import Image from "next/image";
 import { RxDotFilled } from "react-icons/rx";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
@@ -17,7 +23,6 @@ export default function about() {
   useEffect(() => {
     fillDot(currentImage);
   }, []);
-  
 
   const nextImage = () => {
     const nextIndex = currentImage === images.length - 1 ? 0 : currentImage + 1;
@@ -79,7 +84,7 @@ export default function about() {
               alt={`Description of image ${currentImage}`}
               key={images[currentImage]}
             />
-          </div> */}
+          </div> */} 
 
           <div
             onClick={nextImage}
@@ -134,7 +139,7 @@ export default function about() {
           })}
           <div className="text-center pt-16 text-gray-600">
             <div className="line-container mt-2 inline-block relative">
-              <span className="text-3xl font-bold  ">SOCIAL BOX</span>
+              <span className="text-3xl font-bold">SOCIAL BOX</span>
             </div>
           </div>
         </section>

@@ -18,7 +18,7 @@ export default function NurseryCatalog({ name, url }) {
           width={1404}
           // style={{ width: "100%" }}
         />
-        <AnimatedLayer />
+        <AnimatedLayer text="DOWNLOAD CATALOG" />
       </div>
       <div className="bg-gray-50  ">
         <p className="text-center py-2 font-bold text-lg text-gray-700">

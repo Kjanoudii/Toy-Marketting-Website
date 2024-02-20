@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NurseryCatalog from "../../components/widget/catalogComponents/NurseryCatalog";
 import useSWR from "swr";
 import LoadingScreen from "../../components/layout/LoadingScreen";
@@ -11,10 +11,18 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 export default function page() {
   const apiVar = "https://api.toymarkettrading.com";
   const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
-
+  const [categoryApi, setCategory] = useState(
+    `${apiVar}/api/Catalogs?populate=deep`
+  );
+  const [isActive, setIsActive] = useState(false);
   const [search, setSearch] = useState("");
+  let searchQueryFilter = "";
   const displaySearch = () => {
+    searchQueryFilter = `/api/Catalogs?populate=deep&filters[title][$contains]=${search.toLowerCase()}`;
+    console.log(searchQueryFilter);
     console.log(search);
+    setCategory(`${apiVar}${searchQueryFilter}`);
+    console.log(categoryApi);
   };
   const fetcher = (...args) => {
     return fetch(...args, {
@@ -24,23 +32,21 @@ export default function page() {
     }).then((response) => response.json());
   };
 
+  useEffect(() => {
+    displaySearch();
+  }, []);
+
   const {
     data: catalogsPageData,
     error: catalogsPageError,
     isLoading: catalogsPageIsLoading,
-  } = useSWR(
-    "https://api.toymarkettrading.com/api/catalogs-page?populate=deep",
-    fetcher
-  );
+  } = useSWR("https://api.toymarkettrading.com/api/catalogs-page", fetcher);
 
   const {
     data: catalogsData,
     error: catalogsError,
     isLoading: catalogsIsLoading,
-  } = useSWR(
-    "https://api.toymarkettrading.com/api/Catalogs?populate=deep",
-    fetcher
-  );
+  } = useSWR(categoryApi, fetcher);
 
   let dataAttributes;
   let catalogs;
@@ -92,22 +98,16 @@ export default function page() {
           </div>
         </div>
         <section className="catalog-container max-h-full mt-2">
-          {catalogs
-            .filter((catalog) => {
-              return search == ""
-                ? catalog
-                : catalog.attributes.title.toLowerCase().includes(search);
-            })
-            .map((catalog, index) => {
-              if (catalog.attributes.category === "Baby & Nursery")
-                return (
-                  <NurseryCatalog
-                    key={index}
-                    name={catalog.attributes.title}
-                    url={catalog.attributes.catalog_cover.data.attributes.url}
-                  />
-                );
-            })}
+          {catalogs.map((catalog, index) => {
+            if (catalog.attributes.category === "Baby & Nursery")
+              return (
+                <NurseryCatalog
+                  key={index}
+                  name={catalog.attributes.title}
+                  url={catalog.attributes.catalog_cover.data.attributes.url}
+                />
+              );
+          })}
         </section>
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
@@ -118,24 +118,24 @@ export default function page() {
         </div>
 
         <section className="py-4 px-28 max-h-full mt-2">
-          {catalogs
-            .filter((catalog) => {
-              return search == ""
-                ? catalog
-                : catalog.attributes.title.toLowerCase().includes(search);
-            })
-            .map((catalog, index) => {
-              if (catalog.attributes.category === "Toy")
-                return (
-                  <ToyBrands
-                    key={index}
-                    name={catalog.attributes.title}
-                    url={catalog.attributes.catalog_cover.data.attributes.url}
-                  />
-                );
-            })}
+          {catalogs.map((catalog, index) => {
+            if (catalog.attributes.category === "Toy")
+              return (
+                <ToyBrands
+                  key={index}
+                  name={catalog.attributes.title}
+                  url={catalog.attributes.catalog_cover.data.attributes.url}
+                />
+              );
+          })}
         </section>
       </main>
     </div>
   );
 }
+
+// .filter((catalog) => {
+//               return search == ""
+//                 ? catalog
+//                 : catalog.attributes.title.toLowerCase().includes(search);
+//             })

@@ -18,7 +18,7 @@ export default function ToyBrands({ name, url }) {
           width={600}
           style={{ width: "100%" }}
         />
-        <AnimatedLayer />
+        <AnimatedLayer text="DOWNLOAD CATALOG" />
       </div>
       <div className="bg-gray-50 m-0 c-thin-border py-2">
         <p className="bg-gray-50 text-center font-bold text-lg text-gray-700">

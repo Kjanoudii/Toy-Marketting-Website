@@ -35,4 +35,7 @@ module.exports = {
 
     return config;
   },
+  images: {
+    domains: ["api.toymarkettrading.com"], // Add your domain here
+  },
 };

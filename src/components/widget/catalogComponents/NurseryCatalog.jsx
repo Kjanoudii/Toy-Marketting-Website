@@ -8,7 +8,7 @@ export default function NurseryCatalog({ name, url }) {
   return (
     <div
       className="c-thin-border inline-block shadow-outline w-60 max-h-90
-     bg-slate-100 mx-auto lg:mr-2 my-1 "
+     bg-slate-100 lg:mr-2 my-1 "
     >
       <div className="relative group cursor-pointer flex h-72">
         <Image

@@ -10,7 +10,10 @@ export default function Page() {
     <>
       <div className="bg-blue-200 h-16 flex justify-between items-center px-4 lg:px-28">
         <h2 className="lg:pl-2 text-lg">CONTACT US</h2>
-        <p className="lg:pr-2  text-gray-500">Home / Contact Us</p>
+        <p className="lg:pr-2 text-gray-400 ">
+          <span className="underline pr-4">Home</span>/
+          <span className="underline pl-4">Contact Us</span>
+        </p>
       </div>
 
       <div className="h-full flex flex-col lg:flex-row px-2 lg:px-28 py-2">

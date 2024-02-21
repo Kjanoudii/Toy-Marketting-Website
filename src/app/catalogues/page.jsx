@@ -14,7 +14,7 @@ export default function page() {
   const [categoryApi, setCategory] = useState(
     `${apiVar}/api/Catalogs?populate=deep`
   );
-  const [isActive, setIsActive] = useState(false);
+
   const [search, setSearch] = useState("");
   let searchQueryFilter = "";
   const displaySearch = () => {
@@ -74,7 +74,10 @@ export default function page() {
         <h2 className="lg:pl-2 text-lg ">
           {dataAttributes.title.toUpperCase()}
         </h2>
-        <p className="lg:pr-2 text-gray-500">Home / Contact Us</p>
+        <p className="lg:pr-2 text-gray-400 ">
+          <span className="underline pr-2">Home</span>/
+          <span className="underline pl-2">Catalogues</span>
+        </p>
       </div>
 
       <main className="max-h-full py-8">
@@ -88,7 +91,11 @@ export default function page() {
            focus:outline-none"
             placeholder="Search here..."
           />
-          <FontAwesomeIcon icon={faMagnifyingGlass} onClick={displaySearch} />
+          <FontAwesomeIcon
+            className="cursor-pointer"
+            icon={faMagnifyingGlass}
+            onClick={displaySearch}
+          />
         </div>
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
@@ -117,7 +124,7 @@ export default function page() {
           </div>
         </div>
 
-        <section className="py-4 px-28 max-h-full mt-2">
+        <section className="pb-8 px-28 max-h-full mt-2">
           {catalogs.map((catalog, index) => {
             if (catalog.attributes.category === "Toy")
               return (

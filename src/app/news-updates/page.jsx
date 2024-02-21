@@ -1,36 +1,62 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
 import React from "react";
-import Image from "next/image";
-import tree from "../../assets/tree.jpg"
-import AnimatedLayer from "../../components/control/AnimatedLayer";
+import useSWR from "swr";
+import NewsItem from "@/src/components/widget/NewsItem";
+import LoadingScreen from "@/src/components/layout/LoadingScreen";
+
 export default function page() {
+  const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
+
+  const fetcher = (...args) => {
+    return fetch(...args, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((response) => response.json());
+  };
+
+  const { data, error, isLoading } = useSWR(
+    "https://api.toymarkettrading.com/api/News-Items?populate=deep",
+    fetcher
+  );
+
+  let newsItemsData = "";
+  if (isLoading) {
+    console.log("Loading...");
+  } else if (error) {
+    console.error("Error fetching data:", error);
+  } else {
+    newsItemsData = data.data;
+
+    console.log(newsItemsData);
+  }
+  if (!data) return <LoadingScreen />;
+  if (error) return "error";
   return (
-    <div className="max-h-full">
+    <div className="max-h-full ">
       <div
         className="bg-blue-200 h-16 flex justify-between items-center px-4 
       lg:px-28"
       >
         <h2 className="lg:pl-2 text-lg">NEWS & UPDATES</h2>
-        <p className="lg:pr-2 text-gray-500">Home / Contact Us</p>
+        <p className="lg:pr-2 text-gray-400 ">
+          <span className="underline pr-4">Home</span>/
+          <span className="underline pl-4">News & Updates</span>
+        </p>
       </div>
-      <main className="h-screen lg:px-28">
-        <div className="mt-4 flex gap-5 cursor-pointer">
-          <div className="relative group">
-            <Image src={tree} width={200} />
-            <AnimatedLayer text="READ MORE"/>
-          </div>
-          <div className="p-2">
-            <p>Dec. 18, 2023</p>
-            <h3>
-              Get your little ones excited for Christmas with these 7 great
-              VTech toys
-            </h3>
-            <p>
-              These are just a few of the great VTech toys, sure to make your
-              child's Christmas merry and bright!
-            </p>
-          </div>
-        </div>
+      <main className="h-full lg:px-28">
+        {newsItemsData.map((item, index) => {
+          return (
+            <NewsItem
+              key={index}
+              title={item.attributes.title}
+              date={item.attributes.date}
+              summary={item.attributes.summary}
+              imgUrl={item.attributes.image.data.attributes.url}
+            />
+          );
+        })}
       </main>
     </div>
   );

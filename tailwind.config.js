@@ -25,6 +25,10 @@ module.exports = {
       width: {
         68: "16.75rem",
       },
+      fontSize:{
+
+        title:"22px",
+      },
     },
   },
   plugins: [],

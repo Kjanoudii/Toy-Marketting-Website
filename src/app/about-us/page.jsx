@@ -18,7 +18,6 @@ export default function about() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
-  
 
   const fetcher = (...args) => {
     return fetch(...args, {
@@ -27,13 +26,12 @@ export default function about() {
       },
     }).then((response) => response.json());
   };
-  
 
   const { data, error, isLoading } = useSWR(
     "https://api.toymarkettrading.com/api/about-page?populate=deep",
     fetcher
   );
-let storedImagesData = []
+  let storedImagesData = [];
   let myData = {};
   let imagesData = [];
   if (isLoading) {
@@ -42,14 +40,13 @@ let storedImagesData = []
     console.error("Error fetching data:", error);
   } else {
     if (!storedImagesData) {
-     
       imagesData = localStorage.getItem("imagesData");
     } else {
       myData = data.data;
       imagesData = data.data.attributes.banner_desktop.data;
       // localStorage.setItem("imagesData", JSON.stringify(imagesData));
-  
-       console.log(localStorage.getItem("imagesData"));
+
+      console.log(localStorage.getItem("imagesData"));
     }
   }
   const { attributes } = myData;
@@ -127,8 +124,10 @@ let storedImagesData = []
              absolute top-3/3 lg:top-2/3  hover:bg-slate-50 right-1.5 
              transform translate-y-1/2 z-10"
           >
-            <BsChevronCompactRight className="text-3xl font-extrabold
-             text-slate-100  group-hover:text-blue-600" />
+            <BsChevronCompactRight
+              className="text-3xl font-extrabold
+             text-slate-100  group-hover:text-blue-600"
+            />
           </div>
         </div>
         <div className="flex justify-center py-5 z-10">
@@ -172,7 +171,7 @@ let storedImagesData = []
         </section>
       </div>
       <div>
-        <section className="max-h-full w-full lg:px-28 px-5">
+        <section className="max-h-full pb-14 w-full lg:px-28 px-5">
           {attributes.social_links.map((item, index) => {
             return (
               <SocialMediaBtn

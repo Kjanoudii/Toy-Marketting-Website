@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import AnimatedLayer from "../control/AnimatedLayer";
 // import tree from "../../assets/tree.jpg"
+import { formatDate } from "@/src/functions/functions";
 export default function NewsItem({ date, title, summary, imgUrl }) {
   const apiVar = "https://api.toymarkettrading.com";
 
@@ -12,7 +13,7 @@ export default function NewsItem({ date, title, summary, imgUrl }) {
         <AnimatedLayer text="READ MORE" />
       </div>
       <div className="p-2 w-4/5">
-        <p className="text-base font-bold text-gray-700">{date}</p>
+        <p className="text-sm font-bold text-gray-700">{formatDate(date)}</p>
         <h3
           className=" cursor-pointer text-title font-bold text-gray-700
          hover:text-blue-600">

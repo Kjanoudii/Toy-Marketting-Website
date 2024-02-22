@@ -27,8 +27,10 @@ body {
   }
 
   .catalog-container {
-    padding: 0 300px;
+    padding: 0 18.75rem;
   }
+
+
 
   .c-thin-border {
     box-shadow: 0 0px 0px 0.3px rgba(160, 154, 154, 0.8);
@@ -124,6 +126,11 @@ body {
     footer {
       padding: 10px 15px;
     }
+
+    .catalog-container {
+    padding: 0 5rem;
+  }
+
     .c-trade-channel {
       max-height: 48px;
       max-width: 200px;

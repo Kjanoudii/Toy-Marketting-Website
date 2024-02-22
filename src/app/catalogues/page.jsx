@@ -13,6 +13,9 @@ export default function page() {
   const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
 
   const [search, setSearch] = useState("");
+  const [babyEmpty, setBabyEmpty] = useState(false);
+  const [toyEmpty, setToyEmpty] = useState(false);
+
   const displaySearch = () => {
     console.log(search);
   };
@@ -33,6 +36,9 @@ export default function page() {
     fetcher
   );
 
+  const filteredBabyCatalog = () => {
+    return;
+  };
   const {
     data: catalogsData,
     error: catalogsError,
@@ -42,6 +48,16 @@ export default function page() {
     fetcher
   );
 
+  const filterArray = (array) => {
+    array.filter((item) => {
+      return search == ""
+        ? item
+        : item.attributes.title.toLowerCase().includes(search);
+    });
+
+    if (array.length == 0) setBabyEmpty(true);
+    return array;
+  };
   let dataAttributes;
   let catalogs;
   if (catalogsPageIsLoading || catalogsIsLoading) {
@@ -87,7 +103,7 @@ export default function page() {
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
             <span className="text-3xl font-bold ">
-              {dataAttributes.baby_title}
+              {babyEmpty ? " " : dataAttributes.baby_title}
             </span>
           </div>
         </div>
@@ -112,7 +128,7 @@ export default function page() {
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
             <span className="text-3xl font-bold ">
-              {dataAttributes.toy_title}
+              {toyEmpty ? " " : dataAttributes.toy_title}
             </span>
           </div>
         </div>

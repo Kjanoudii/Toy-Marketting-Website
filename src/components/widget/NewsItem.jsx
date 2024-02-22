@@ -1,25 +1,26 @@
 import React from "react";
 import Image from "next/image";
 import AnimatedLayer from "../control/AnimatedLayer";
-// import tree from "../../assets/tree.jpg"
-export default function NewsItem({ date, title, summary, imgUrl }) {
-  const apiVar = "https://api.toymarkettrading.com";
-
+const apiVar = "https://api.toymarkettrading.com";
+import { formatDate } from "@/src/functions/functions";
+export default function LastestNewsItem({ date, title, imgUrl }) {
   return (
-    <div className="mt-4 flex gap-5 mb-10">
-      <div className="relative group cursor-pointer ">
-        <Image src={`${apiVar}${imgUrl}`} width={196} height={220} />
+    <div className="mt-4 inline-block c-thin-border mx-2 overflow-hidden w-2/5">
+      <div className="relative group cursor-pointer overflow-hidden">
+        <Image
+          className="block mx-auto"
+          src={`${apiVar}${imgUrl}`}
+          width={506}
+          height={120}
+          style={{ width: "100%", height: "100%" }}
+        />
         <AnimatedLayer text="READ MORE" />
       </div>
-      <div className="p-2 w-4/5">
-        <p className="text-base font-bold text-gray-700">{date}</p>
-        <h3
-          className=" cursor-pointer text-title font-bold text-gray-700
-         hover:text-blue-600"
-        >
+      <div className="p-2 w-4/5 px-5">
+        <p className="text-sm text-gray-500">{formatDate(date)}</p>
+        <h3 className="cursor-pointer text-lg font-light text-gray-700 hover:text-blue-600">
           {title}
         </h3>
-        <p className="truncate text-gray-500">{summary}</p>
       </div>
     </div>
   );

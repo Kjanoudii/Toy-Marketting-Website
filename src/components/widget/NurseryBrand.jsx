@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import AnimatedLayer from "../../control/AnimatedLayer";
+import AnimatedLayer from "../control/AnimatedLayer";
 
 export default function NurseryCatalog({ name, url }) {
   const apiVar = "https://api.toymarkettrading.com";
@@ -15,7 +15,7 @@ export default function NurseryCatalog({ name, url }) {
           className="block m-auto "
           src={`${apiVar}${url}`}
           height={200}
-          width={1404}
+          width={404}
           // style={{ width: "100%" }}
         />
         <AnimatedLayer />

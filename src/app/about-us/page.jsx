@@ -8,6 +8,7 @@ import { images, variant1, variant2 } from "../../data/data.js";
 import Image from "next/image";
 import { RxDotFilled } from "react-icons/rx";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import ReactHtmlParser from "html-react-parser";
 
 import TradeChannel from "../../components/widget/TradeChannel.jsx";
 import SocialMediaBtn from "../../components/widget/SocialMediaBtn.jsx";
@@ -83,6 +84,16 @@ export default function about() {
     const dot = document.getElementById(`dot-${imageIndex}`);
     // dot.classList.add("c-dot");
   };
+  // function addLineBreaks(text) {
+  //   // Split the text into an array of sentences
+  //   const sentences = text.split(/[.?!]\s+/);
+
+  //   // Join the sentences with a <br> tag after each sentence
+  //   return sentences.join("<br/>");
+  // }
+
+
+
 
   if (!data) return <LoadingScreen />;
   if (!imagesData) return <LoadingScreen />;
@@ -154,10 +165,9 @@ export default function about() {
       </main>
       <div className="max-h-full">
         <section className="h-2/5 pt-0 lg:pt-10 px-8 lg:px-28">
-          <p
-            className="text-base text-slate-500 font-thin"
-            dangerouslySetInnerHTML={{ __html: attributes.content }}
-          />
+          <p className="text-slate-500 font-thin">
+            {ReactHtmlParser(attributes.content)}
+          </p>
         </section>
         <section className="max-h-2/5 lg:inline-block flex flex-col lg:px-28 pt-14 py-2">
           {attributes.clients_range.map((item, index) => {

@@ -54,6 +54,7 @@ export default function page() {
               date={item.attributes.date}
               summary={item.attributes.summary}
               imgUrl={item.attributes.image.data.attributes.url}
+              id={item.id}
             />
           );
         })}

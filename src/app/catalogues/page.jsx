@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NurseryCatalog from "../../components/widget/catalogComponents/NurseryCatalog";
 import useSWR from "swr";
 import LoadingScreen from "../../components/layout/LoadingScreen";
@@ -48,16 +48,6 @@ export default function page() {
     fetcher
   );
 
-  const filterArray = (array) => {
-    array.filter((item) => {
-      return search == ""
-        ? item
-        : item.attributes.title.toLowerCase().includes(search);
-    });
-
-    if (array.length == 0) setBabyEmpty(true);
-    return array;
-  };
   let dataAttributes;
   let catalogs;
   if (catalogsPageIsLoading || catalogsIsLoading) {
@@ -115,7 +105,7 @@ export default function page() {
                 : catalog.attributes.title.toLowerCase().includes(search);
             })
             .map((catalog, index) => {
-              if (catalog.attributes.category === "Baby & Nursery")
+              if (catalog.attributes.category === "Baby & Nursery") {
                 return (
                   <NurseryCatalog
                     key={index}
@@ -123,6 +113,7 @@ export default function page() {
                     url={catalog.attributes.catalog_cover.data.attributes.url}
                   />
                 );
+              }
             })}
         </section>
         <div className="text-center mt-16 text-gray-600">
@@ -134,14 +125,12 @@ export default function page() {
         </div>
 
         <section className="py-4 px-28 max-h-full mt-2">
-          {catalogs
-            .filter((catalog) => {
+          {catalogs.filter((catalog) => {
               return search == ""
                 ? catalog
                 : catalog.attributes.title.toLowerCase().includes(search);
-            })
-            .map((catalog, index) => {
-              if (catalog.attributes.category === "Toy")
+            }).map((catalog, index) => {
+              if (catalog.attributes.category === "Toy") {
                 return (
                   <ToyBrands
                     key={index}
@@ -149,6 +138,7 @@ export default function page() {
                     url={catalog.attributes.catalog_cover.data.attributes.url}
                   />
                 );
+              }
             })}
         </section>
       </main>

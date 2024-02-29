@@ -3,7 +3,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 // import ErrorLabel from "./ErrorLabel";
 import { getCountries } from "react-phone-number-input/input";
-import { UseFormRegister } from "react-hook-form";
+import { UseForm } from "react-hook-form";
 import "../../../styles/phoneInput.css";
 
 function PhoneInputField({

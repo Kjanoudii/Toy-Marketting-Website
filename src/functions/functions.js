@@ -53,3 +53,19 @@ export const fetchCountryData = async () => {
     throw new Error("Failed to fetch country data");
   }
 };
+
+
+
+export function getCurrentDate() {
+  const currentDate = new Date();
+
+  // Extract year, month, and day components
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0"); 
+  const day = String(currentDate.getDate()).padStart(2, "0");
+
+  // Construct the date string in the format "YYYY-MM-DD"
+  const formattedDate = `${year}-${month}-${day}`;
+
+  return formattedDate;
+}

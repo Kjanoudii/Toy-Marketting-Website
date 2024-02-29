@@ -1,0 +1,36 @@
+.react-phone-number-input {
+  background-color: #fff;
+}
+
+.custom-phone-input input {
+  background-color: #fff;
+  color: #44403c;
+  border: none;
+  outline: none;
+  padding-left: 10px;
+}
+
+.custom-phone-input input::placeholder {
+  color: #78716c;
+}
+
+/* .custom-phone-input:focus {
+  outline: 2px solid #ffa500 !important;
+} */
+
+.PhoneInputCountrySelect {
+  background-color: #fff;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 10px;
+}
+
+.PhoneInputCountrySelect option {
+  background-color: #fff;
+  color: #0e1a2e;
+}
+
+.PhoneInputCountrySelect option:hover {
+  background-color: #2b3f57;
+}

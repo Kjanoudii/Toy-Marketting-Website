@@ -41,3 +41,15 @@ const phoneNumber = "+1234567890";
 const defaultCountry = "US";
 const validationResult = validatePhoneNumber(phoneNumber, defaultCountry);
 console.log("result" + validationResult);
+
+
+export const fetchCountryData = async () => {
+  try {
+    const response = await fetch("https://ipapi.co/json/");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching country data:", error);
+    throw new Error("Failed to fetch country data");
+  }
+};

@@ -1,10 +1,10 @@
 import React from "react";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import ErrorLabel from "./ErrorLabel";
+// import ErrorLabel from "./ErrorLabel";
 import { getCountries } from "react-phone-number-input/input";
 import { UseFormRegister } from "react-hook-form";
-import "@/styles/phoneInput.css";
+import "../../../styles/phoneInput.css";
 
 function PhoneInputField({
   id,
@@ -14,7 +14,7 @@ function PhoneInputField({
   defaultCountry,
   className,
   register,
-  error,
+  // error,
   onChange,
   value,
   rule,
@@ -46,11 +46,11 @@ function PhoneInputField({
           onChange && onChange(phone);
         }}
       />
-      <ErrorLabel
+      {/* <ErrorLabel
         name={name}
         message={error?.message || ""}
         isVisible={error}
-      />
+      /> */}
     </div>
   );
 }

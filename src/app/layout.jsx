@@ -1,5 +1,7 @@
 
 import "./globals.css";
+import "react-phone-input-2/lib/style.css";
+
 // import { Oswald } from "next/font/google";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
@@ -28,6 +30,8 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Jost:wght@800&family=Oswald:wght@400;500&family=Roboto+Condensed:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.3/build/css/intlTelInput.css"/>
+
       </head>
       <body>
         <Header />

@@ -1,10 +1,13 @@
 import React from "react";
 // import Image from "next/image";
+import "react-phone-input-2/lib/style.css";
 
 import Form from "../../components/control/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
+// import { PhoneNumberUtil } from "google-libphonenumber";
+
 export default function Page() {
   return (
     <>

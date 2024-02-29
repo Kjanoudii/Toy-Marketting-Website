@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 "use client";
 import { motion } from "framer-motion";
-
+import ToyBrands from "../components/widget/ToyBrands.jsx";
 import React from "react";
 import Image from "next/image";
 // import CldVideoPlayer from "next-cloudinary"
@@ -59,6 +59,7 @@ export default function page() {
     homePageData = homePData.data;
     // homePageData = homePData.data;
     console.log("news item data" + newsItemsData.data);
+    console.log(homePageData.attributes);
     images = homePageData.attributes.toy_banner;
   }
   const nextImage = () => {
@@ -74,7 +75,7 @@ export default function page() {
     console.log(currentImage);
     //  fillDot(newImageIndex);
   };
-  if (!newsItemsData || !homePData) return <LoadingScreen />;
+  if (!newsItemsData || !homePageData) return <LoadingScreen />;
   if (newsItemsDataError || homePageError) return "error";
   return (
     <div>
@@ -151,15 +152,17 @@ export default function page() {
       </div>
       <div className=" flex px-24 max-w-full max-h-full">
         <section className=" h-full w-4/6">
-          {homePageData.attributes.baby_banner.map((item, index) => {
-            return (
-              <NurseryBrand
-                key={index}
-                name={item.title}
-                url={item.image.data.attributes.url}
-              />
-            );
-          })}
+          {homePageData.attributes.baby_banner
+            .slice(0, 10)
+            .map((item, index) => {
+              return (
+                <NurseryBrand
+                  key={index}
+                  name={item.title}
+                  url={item.image.data.attributes.url}
+                />
+              );
+            })}
         </section>
         <section className="w-2/6 h-full relative">
           <div
@@ -200,6 +203,38 @@ export default function page() {
              text-slate-100  group-hover:text-blue-600"
             />
           </div>
+        </section>
+      </div>
+
+      <div>
+        <div className="text-center mt-16 text-gray-600">
+          <div className="line-container inline-block relative">
+            <span className="text-3xl font-bold ">TOY BRANDS PORTFOLIO</span>
+          </div>
+        </div>
+
+        <section className="px-28 pb-20 h-full w-full">
+          {homePageData.attributes.baby_banner.slice(10).map((item, index) => {
+            if (
+              item &&
+              item.image &&
+              item.image.data &&
+              item.image.data.attributes
+            ) {
+              return (
+                <ToyBrands
+                  key={index}
+                  name={item.title}
+                  url={item.image.data.attributes.url}
+                />
+              );
+            } else {
+              console.error(
+                `Invalid data structure for item at index ${index}`
+              );
+              return null;
+            }
+          })}
         </section>
       </div>
     </div>

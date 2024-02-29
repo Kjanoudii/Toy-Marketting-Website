@@ -92,15 +92,22 @@ export default function page() {
         </div>
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
-            <span className="text-3xl font-bold ">
-              {babyEmpty ? " " : dataAttributes.baby_title}
+            <span className="text-3xl font-bold">
+              {babyEmpty ||
+              !catalogs.some(
+                (catalog) =>
+                  catalog.attributes.category === "Baby & Nursery" &&
+                  catalog.attributes.title.toLowerCase().includes(search)
+              )
+                ? ""
+                : dataAttributes.baby_title}
             </span>
           </div>
         </div>
         <section className="catalog-container max-h-full mt-2">
           {catalogs
             .filter((catalog) => {
-              return search == ""
+              return search === ""
                 ? catalog
                 : catalog.attributes.title.toLowerCase().includes(search);
             })
@@ -111,6 +118,7 @@ export default function page() {
                     key={index}
                     name={catalog.attributes.title}
                     url={catalog.attributes.catalog_cover.data.attributes.url}
+                    catalogUrl={catalog.attributes.catalog_file.data}
                   />
                 );
               }
@@ -118,18 +126,27 @@ export default function page() {
         </section>
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
-            <span className="text-3xl font-bold ">
-              {toyEmpty ? " " : dataAttributes.toy_title}
+            <span className="text-3xl font-bold">
+              {babyEmpty ||
+              !catalogs.some(
+                (catalog) =>
+                  catalog.attributes.category === "Toy" &&
+                  catalog.attributes.title.toLowerCase().includes(search)
+              )
+                ? ""
+                : dataAttributes.toy_title}
             </span>
           </div>
         </div>
 
         <section className="py-4 px-28 max-h-full mt-2">
-          {catalogs.filter((catalog) => {
-              return search == ""
+          {catalogs
+            .filter((catalog) => {
+              return search === ""
                 ? catalog
                 : catalog.attributes.title.toLowerCase().includes(search);
-            }).map((catalog, index) => {
+            })
+            .map((catalog, index) => {
               if (catalog.attributes.category === "Toy") {
                 return (
                   <ToyBrands

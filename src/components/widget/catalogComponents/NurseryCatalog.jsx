@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import AnimatedLayer from "../../control/AnimatedLayer";
 
-export default function NurseryCatalog({ name, url }) {
+export default function NurseryCatalog({ name, url, catalogUrl }) {
   const apiVar = "https://api.toymarkettrading.com";
   return (
     <div
@@ -18,7 +18,7 @@ export default function NurseryCatalog({ name, url }) {
           width={1404}
           // style={{ width: "100%" }}
         />
-        <AnimatedLayer />
+        <AnimatedLayer catalogUrl={catalogUrl} />
       </div>
       <div className="bg-gray-50  ">
         <p className="text-center py-2 font-bold text-lg text-gray-700">

@@ -14,8 +14,8 @@ export default function NurseryCatalog({ name, url }) {
         <Image
           className="block m-auto "
           src={`${apiVar}${url}`}
-          height={200}
-          width={404}
+          height={100}
+          width={104}
           // style={{ width: "100%" }}
         />
         <AnimatedLayer />

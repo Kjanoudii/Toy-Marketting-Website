@@ -1,22 +1,43 @@
 export function formatDate(inputDate) {
-    const months = [
-      "Jan.",
-      "Feb.",
-      "Mar.",
-      "Apr.",
-      "May",
-      "Jun.",
-      "Jul.",
-      "Aug.",
-      "Sep.",
-      "Oct.",
-      "Nov.",
-      "Dec.",
-    ];
-    const [year, month, day] = inputDate.split("-");
-    const formattedDate = `${months[parseInt(month, 10) - 1]} ${parseInt(
-      day,
-      10
-    )}, ${year}`;
-    return formattedDate;
+  const months = [
+    "Jan.",
+    "Feb.",
+    "Mar.",
+    "Apr.",
+    "May",
+    "Jun.",
+    "Jul.",
+    "Aug.",
+    "Sep.",
+    "Oct.",
+    "Nov.",
+    "Dec.",
+  ];
+  const [year, month, day] = inputDate.split("-");
+  const formattedDate = `${months[parseInt(month, 10) - 1]} ${parseInt(
+    day,
+    10
+  )}, ${year}`;
+  return formattedDate;
+}
+
+// eslint-disable-next-line no-undef
+const { parsePhoneNumber } = require("libphonenumber-js");
+
+const validatePhoneNumber = (phoneNumber, defaultCountry) => {
+  try {
+    const parsedPhoneNumber = parsePhoneNumber(phoneNumber, defaultCountry);
+    if (!parsedPhoneNumber.isValid()) {
+      return "Please enter a valid phone number.";
+    }
+    return true;
+  } catch (error) {
+    return "Please enter a valid phone number.";
   }
+};
+
+// Example usage
+const phoneNumber = "+1234567890";
+const defaultCountry = "US";
+const validationResult = validatePhoneNumber(phoneNumber, defaultCountry);
+console.log("result" + validationResult);

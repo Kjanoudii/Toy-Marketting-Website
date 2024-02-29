@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import AnimatedLayer from "../../control/AnimatedLayer";
+import AnimatedLayer from "../control/AnimatedLayer";
 
 export default function ToyBrands({ name, url }) {
   const apiVar = "https://api.toymarkettrading.com";
@@ -14,9 +14,9 @@ export default function ToyBrands({ name, url }) {
         <Image
           className="block m-auto max-h-full"
           src={`${apiVar}${url}`}
-          height={400}
-          width={600}
-          style={{ width: "100%" }}
+          height={200}
+          width={120}
+        
         />
         <AnimatedLayer />
       </div>

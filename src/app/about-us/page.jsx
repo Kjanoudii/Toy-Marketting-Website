@@ -84,15 +84,7 @@ export default function about() {
     const dot = document.getElementById(`dot-${imageIndex}`);
     // dot.classList.add("c-dot");
   };
-  // function addLineBreaks(text) {
-  //   // Split the text into an array of sentences
-  //   const sentences = text.split(/[.?!]\s+/);
-
-  //   // Join the sentences with a <br> tag after each sentence
-  //   return sentences.join("<br/>");
-  // }
-
-
+  
 
 
   if (!data) return <LoadingScreen />;

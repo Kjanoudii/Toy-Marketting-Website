@@ -6,6 +6,9 @@ import Form from "../../components/control/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
+import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
 export default function Page() {
@@ -22,8 +25,12 @@ export default function Page() {
             <p className="text-sm inline-block bg-blue-600 text-gray-50 py-1 px-3 font-bold">
               ADDRESS
             </p>
-            <p className="text-gray-700">
-              UNESCO Center Bldg. 1st Flr.,
+            <p className="text-gray-600">
+              <FontAwesomeIcon
+                icon={faLocationPin}
+                className="w-3 inline my-auto "
+              />
+              {""} UNESCO Center Bldg. 1st Flr.,
               <br />
               Verdun, Beirut - Lebanon
             </p>
@@ -33,12 +40,15 @@ export default function Page() {
             <p className="text-sm inline-block bg-blue-600 text-gray-50 py-1 px-3 font-bold">
               PHONE NUMBERS
             </p>
-            <p className="text-gray-700">
-              +961 (1) 799 944
+            <p className="text-gray-600">
+              <FontAwesomeIcon icon={faPhone} className="inline w-4" /> +961 (1)
+              799 944
               <br />
-              +961 (1) 795 127
+              <FontAwesomeIcon icon={faPhone} className="inline w-4" /> +961 (1)
+              795 127
               <br />
-              Fax +961 (1) 799 944 ext. 140
+              <FontAwesomeIcon icon={faPhone} className="inline w-4" /> Fax +961
+              (1) 799 944 ext. 140
             </p>
           </div>
           <div>
@@ -46,7 +56,8 @@ export default function Page() {
               EMAIL
             </p>
             <p className="hover:text-blue-500">
-              <a href="mailto:info@toymarkettrading.com">info</a>
+              <FontAwesomeIcon icon={faEnvelope} className="w-4 inline" />
+              <a href="mailto:info@toymarkettrading.com"> info</a>
 
               <a href="mailto:info@toymarkettrading.com">
                 <i>

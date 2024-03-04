@@ -6,17 +6,39 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import moment from "moment";
 import * as yup from "yup";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
+import { v4 as uuidv4 } from "uuid";
 // import PhoneValidate from "./PhoneInputValidate.jsx";
 import NewPhoneInput from "./new/NewPhoneInput";
 import { PhoneNumberUtil } from "google-libphonenumber";
-import { fetchCountryData } from "../../functions/functions.js";
-
+import { fetchCountryData, getCurrentDate } from "../../functions/functions.js";
+import LoadingScreen from "../layout/LoadingScreen";
 export default function Form() {
   const phoneUtil = PhoneNumberUtil.getInstance();
-  const [defaultCountry, setDefaultCountry] = useState("AE");
+  const [defaultCountry, setDefaultCountry] = useState("US");
 
   const [phone, setPhone] = useState(null);
+  const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
+
+  const fetcher = (...args) => {
+    return fetch(...args, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((response) => response.json());
+  };
+
+  const { data, error, isLoading } = useSWR(
+    "https://api.toymarkettrading.com/api/Contact-Requests",
+    fetcher
+  );
+  if (isLoading) {
+    console.log("Loading...");
+  } else if (error) {
+    console.error("Error fetching data:", error);
+  } else {
+    console.log(data);
+  }
   const isPhoneValid = (phone) => {
     try {
       return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(phone));
@@ -26,6 +48,7 @@ export default function Form() {
   };
 
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const data = await fetchCountryData();
@@ -45,72 +68,6 @@ export default function Form() {
     message: yup.string().required(),
   });
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  // const handleSub = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const accessToken =
-  //       "7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154";
-  //     const response = await fetch(
-  //       "https://api.toymarkettrading.com/api/Contact-Requests",
-  //       {
-  //         // Replace with your API endpoint
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //         body: JSON.stringify(formData),
-  //       }
-  //     ).then(() => {
-  //       console.log("added");
-
-  //       console.log("Form data submitted successfully!");
-  //       logFormData(formData);
-  //       setFormData({
-  //         ID: 3,
-  //         firstName: "",
-  //         lastName: "",
-  //         email: "",
-  //         phoneNumber: "",
-  //         submitDate: getCurrentDate(),
-  //       });
-  //     });
-
-  //     if (response.ok) {
-  //       console.log("Form data submitted successfully!");
-
-  //       setFormData({
-  //         ID: 1,
-  //         firstName: "",
-  //         lastName: "",
-  //         email: "",
-  //         phoneNumber: "",
-  //         submitDate: null,
-  //       });
-  //     } else {
-  //       console.error("Failed to submit form data");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error submitting form data:", error);
-  //   }
-  // };
-
-  // const defaultValues = {
-  //   name: "",
-  //   email: "",
-  //   phone: "",
-  //   subject: "",
-  //   message: "",
-  //   submit_date: moment().format("YYYY-MM-DD"),
-  //   status: "New",
-  //   source_url: "",
-  //   source_ip: "",
-  // };
-
   const {
     register,
     handleSubmit,
@@ -122,8 +79,51 @@ export default function Form() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (formData) => {
+    console.log(formData);
+// let phoneNb = phone.toString()
+
+    const data = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      phone_number: phone ,
+      message: formData.message,
+      submit_date: getCurrentDate(),
+      // submit_date: "2024-03-01T14:30:00.000Z",
+      status: "New",
+
+      // createdAt: "2024-02-28T21:37:26.545Z",
+      // updatedAt: "2024-02-28T21:37:26.545Z",
+    };
+    // const id = uuidv4();
+    // const currentDate = new Date().toISOString();
     console.log(data);
+    // // Add the ID and current date to the form data
+    // formData.id = null;
+    // formData.date = null;
+    try {
+      const response = await fetch("https://api.toymarkettrading.com/api/Contact-Requests",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        mutate("https://api.toymarkettrading.com/api/Contact-Requests");
+        console.log("Form submitted successfully");
+        // Optionally, you can handle the success response here
+      } else {
+        console.error("Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
   const handlePhoneNumberChange = useCallback(
     (value) => {
@@ -141,6 +141,8 @@ export default function Form() {
     [isPhoneValid, setError, clearErrors]
   );
 
+  if (isLoading) return <LoadingScreen />;
+  if (!data) return error;
   return (
     <form
       className="lg:pl-9 pl-0 px-7 lg:pr-3"
@@ -171,7 +173,6 @@ export default function Form() {
         className="c-thin-border block bg-transparent w-full mb-5 py-2 px-4 placeholder-gray-500 focus:outline-none"
         placeholder="email"
         {...register("email")}
-        // onChange={onChange}
       />
 
       <NewPhoneInput
@@ -197,48 +198,3 @@ export default function Form() {
     </form>
   );
 }
-
-// export default function Form() {
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     email: "",
-//     phoneNumber: "",
-//   });
-//  const logFormData = (e) => {
-//    e.preventDefault(); // Prevents the default form submission behavior
-//    console.log("Form Data:", formData);
-//  };
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       const response = await fetch("YOUR_API_ENDPOINT", {
-//         // Replace with your API endpoint
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(formData),
-//       });
-
-//       if (response.ok) {
-//         console.log("Form data submitted successfully!");
-//         setFormData({
-//           firstName: "",
-//           lastName: "",
-//           email: "",
-//           phoneNumber: "",
-//         });
-//       } else {
-//         console.error("Failed to submit form data");
-//       }
-//     } catch (error) {
-//       console.error("Error submitting form data:", error);
-//     }
-//   };

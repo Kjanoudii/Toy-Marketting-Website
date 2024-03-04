@@ -6,6 +6,8 @@ import AnimatedLayer from "../control/AnimatedLayer";
 export default function NurseryCatalog({ name, url }) {
   const apiVar = "https://api.toymarkettrading.com";
   return (
+
+    
     <div
       className="c-thin-border inline-block shadow-outline w-60 max-h-90
      bg-slate-100 mx-auto lg:mr-3 my-1 "

@@ -141,7 +141,9 @@ export default function page() {
         })}
       </section>
 
-      <Button>VIEW ALL</Button>
+      <Button>
+        <p className="p-3">VIEW ALL</p>
+      </Button>
 
       <div className="text-center mt-16 text-gray-600">
         <div className="line-container inline-block relative">
@@ -151,7 +153,7 @@ export default function page() {
         </div>
       </div>
       <div className=" flex px-24 max-w-full max-h-full">
-        <section className=" h-full w-4/6">
+        <section className="block mx-auto h-full w-4/6">
           {homePageData.attributes.baby_banner
             .slice(0, 10)
             .map((item, index) => {

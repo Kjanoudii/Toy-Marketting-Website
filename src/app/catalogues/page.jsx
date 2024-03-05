@@ -59,7 +59,7 @@ export default function page() {
     catalogs = catalogsData?.data;
     console.log(catalogs);
   }
-
+let myArray = []
   if (!dataAttributes || !catalogs)
     return (
       <main>
@@ -111,14 +111,19 @@ export default function page() {
                 ? catalog
                 : catalog.attributes.title.toLowerCase().includes(search);
             })
-            .map((catalog, index) => {
+            .filter((catalog, index) => {
               if (catalog.attributes.category === "Baby & Nursery") {
-                return (
+                    return (
                   <NurseryCatalog
                     key={index}
                     name={catalog.attributes.title}
                     url={catalog.attributes.catalog_cover.data.attributes.url}
                     catalogUrl={catalog.attributes.catalog_file.data}
+                    clas={index = catalogs.length -1
+                        ? "block mx-auto"
+                        : "inline-block lg:mx-1"
+                    }
+                    handleClick={() => console.log(index)}
                   />
                 );
               }

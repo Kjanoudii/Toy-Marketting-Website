@@ -152,8 +152,8 @@ export default function page() {
           </span>
         </div>
       </div>
-      <div className=" flex px-24 max-w-full max-h-full">
-        <section className="block mx-auto h-full w-4/6">
+      <div className=" flex justify-center px-24 max-w-full max-h-full">
+        <section className="block mx-auto h-full w-4/6 ">
           {homePageData.attributes.baby_banner
             .slice(0, 10)
             .map((item, index) => {
@@ -162,6 +162,11 @@ export default function page() {
                   key={index}
                   name={item.title}
                   url={item.image.data.attributes.url}
+                  clas={
+                    index == homePageData.attributes.baby_banner.slice(0, 10).length-1
+                      ? "block mx-auto"
+                      : "inline-block lg:mx-2"
+                  }
                 />
               );
             })}

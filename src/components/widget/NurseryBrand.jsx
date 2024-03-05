@@ -3,21 +3,19 @@ import Image from "next/image";
 
 import AnimatedLayer from "../control/AnimatedLayer";
 
-export default function NurseryCatalog({ name, url }) {
+export default function NurseryCatalog({ name, url, clas }) {
   const apiVar = "https://api.toymarkettrading.com";
   return (
-
-    
     <div
-      className="c-thin-border inline-block shadow-outline w-60 max-h-90
-     bg-slate-100 mx-auto lg:mr-3 my-1 "
+      className={`c-thin-border ${clas} 
+      shadow-outline w-60 max-h-78 bg-slate-100 lg:my-2 my-1 `}
     >
-      <div className="relative group cursor-pointer flex h-72">
+      <div className="relative group cursor-pointer flex h-64">
         <Image
-          className="block m-auto "
+          className="block m-auto"
           src={`${apiVar}${url}`}
           height={100}
-          width={104}
+          width={115}
           // style={{ width: "100%" }}
         />
         <AnimatedLayer />

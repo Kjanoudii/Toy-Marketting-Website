@@ -3,12 +3,13 @@ import Image from "next/image";
 
 import AnimatedLayer from "../../control/AnimatedLayer";
 
-export default function NurseryCatalog({ name, url, catalogUrl }) {
+export default function NurseryCatalog({ name, url, catalogUrl, clas, handleClick }) {
   const apiVar = "https://api.toymarkettrading.com";
   return (
     <div
-      className="c-thin-border inline-block shadow-outline w-60 max-h-90
-     bg-slate-100 mx-auto lg:mr-3 my-1 "
+      className={`c-thin-border ${clas} shadow-outline max-w-60 max-h-90
+     bg-slate-100 my-1 ` }
+     onClick={handleClick}
     >
       <div className="relative group cursor-pointer flex h-72">
         <Image

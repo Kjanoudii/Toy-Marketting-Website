@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 // import Input from "./Input";
+import ReCAPTCHA from "react-google-recaptcha";
 import Button from "./buttons/Button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,6 +17,7 @@ import LoadingScreen from "../layout/LoadingScreen";
 export default function Form() {
   const phoneUtil = PhoneNumberUtil.getInstance();
   const [defaultCountry, setDefaultCountry] = useState("US");
+  const [reCaptcha, setReCaptcha] = useState("");
 
   const [phone, setPhone] = useState(null);
   const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
@@ -48,7 +50,6 @@ export default function Form() {
   };
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const data = await fetchCountryData();
@@ -81,13 +82,13 @@ export default function Form() {
 
   const onSubmit = async (formData) => {
     console.log(formData);
-// let phoneNb = phone.toString()
+    // let phoneNb = phone.toString()
 
     const data = {
       first_name: formData.firstName,
       last_name: formData.lastName,
       email: formData.email,
-      phone_number: phone ,
+      phone_number: phone,
       message: formData.message,
       submit_date: getCurrentDate(),
       // submit_date: "2024-03-01T14:30:00.000Z",
@@ -103,7 +104,8 @@ export default function Form() {
     // formData.id = null;
     // formData.date = null;
     try {
-      const response = await fetch("https://api.toymarkettrading.com/api/Contact-Requests",
+      const response = await fetch(
+        "https://api.toymarkettrading.com/api/Contact-Requests",
         {
           method: "POST",
           headers: {
@@ -191,7 +193,12 @@ export default function Form() {
         {...register("message")}
       />
       <p className="text-red-500">{errors.message?.message}</p>
-
+      <ReCAPTCHA
+        sitekey="6LfI-QEpAAAAADGyB4_PzHxZivin-6ehEhr1rFx9"
+        onChange={(val) => {
+          setReCaptcha(val);
+        }}
+      />
       <Button type="submit">
         <p className="p-4">SUBMIT</p>
       </Button>

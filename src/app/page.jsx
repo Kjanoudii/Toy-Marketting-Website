@@ -2,7 +2,7 @@
 "use client";
 import { motion } from "framer-motion";
 import ToyBrands from "../components/widget/ToyBrands.jsx";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 // import CldVideoPlayer from "next-cloudinary"
 // import ReactPlayer from "react-player";
@@ -18,7 +18,23 @@ import LoadingScreen from "../components/layout/LoadingScreen";
 import Button from "../components/control/buttons/Button";
 import NurseryBrand from "../components/widget/NurseryBrand";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { RxDotFilled } from "react-icons/rx";
 export default function page() {
+  
+  
+  const fillDot = (imageIndex = 0) => {
+    const dot = document.getElementById(`dot-${imageIndex}`);
+    const allDots = document.querySelectorAll(".c-dot");
+    allDots.forEach((contactElement) => {
+      contactElement.classList.remove("c-dot");
+    });
+
+    dot?.classList?.add("c-dot");
+  };
+  const goToImg = (imageIndex) => {
+    setCurrentImage(imageIndex);
+    fillDot(imageIndex);
+  };
   const accessToken =
     "7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154";
   const [currentImage, setCurrentImage] = useState(0);
@@ -31,7 +47,10 @@ export default function page() {
     }).then((response) => response.json());
   };
   const apiVar = "https://api.toymarkettrading.com";
-
+  
+  useEffect(() => {
+    fillDot();
+  }, []);
   const {
     data: newsItemsData,
     error: newsItemsDataError,
@@ -39,8 +58,8 @@ export default function page() {
   } = useSWR(
     "https://api.toymarkettrading.com/api/News-Items?populate=deep",
     fetcher
-  );
-  const {
+    );
+    const {
     data: homePData,
     error: homePageError,
     isLoading: homePageLoading,
@@ -65,7 +84,7 @@ export default function page() {
   const nextImage = () => {
     const nextIndex = currentImage === images.length - 1 ? 0 : currentImage + 1;
     setCurrentImage(nextIndex);
-    //  fillDot(nextIndex);
+    fillDot(nextIndex);
   };
 
   const prevImage = () => {
@@ -73,7 +92,7 @@ export default function page() {
       currentImage === 0 ? images.length - 1 : currentImage - 1;
     setCurrentImage(newImageIndex);
     console.log(currentImage);
-    //  fillDot(newImageIndex);
+    fillDot(newImageIndex);
   };
   if (!newsItemsData || !homePageData) return <LoadingScreen />;
   if (newsItemsDataError || homePageError) return "error";
@@ -89,7 +108,7 @@ export default function page() {
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
             <span className="text-3xl font-bold ">
-              WELCOME TO TOY MARKET TRADING
+              {homePData.attributes?.news_title}
             </span>
           </div>
         </div>
@@ -148,7 +167,7 @@ export default function page() {
       <div className="text-center mt-16 text-gray-600">
         <div className="line-container inline-block relative">
           <span className="text-3xl font-bold ">
-            BABY & NURSERY BRANDS PORTFOLIO
+            {homePageData.attributes.baby_title}
           </span>
         </div>
       </div>
@@ -156,14 +175,14 @@ export default function page() {
         <section className="block mx-auto h-full w-4/6 ">
           {homePageData.attributes.baby_banner
             .slice(0, 10)
-            .map((item, index) => {
+            .map((item, index, array) => {
               return (
                 <NurseryBrand
                   key={index}
                   name={item.title}
                   url={item.image.data.attributes.url}
-                  clas={
-                    index == homePageData.attributes.baby_banner.slice(0, 10).length-1
+                  className={
+                    index === array.length - 1
                       ? "block mx-auto"
                       : "inline-block lg:mx-2"
                   }
@@ -210,13 +229,29 @@ export default function page() {
              text-slate-100  group-hover:text-blue-600"
             />
           </div>
+          <div className="flex justify-center py-5 z-10">
+            {images.map((image, index) => {
+              return (
+                <div
+                  id={`dot-${index}`}
+                  onClick={() => goToImg(index)}
+                  className="dot text-4xl cursor-pointer p- text-gray-300 hover:text-gray-800"
+                  key={index}
+                >
+                  <RxDotFilled />
+                </div>
+              );
+            })}
+          </div>
         </section>
       </div>
 
       <div>
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
-            <span className="text-3xl font-bold ">TOY BRANDS PORTFOLIO</span>
+            <span className="text-3xl font-bold ">
+              {homePageData.attributes.toy_title}
+            </span>
           </div>
         </div>
 

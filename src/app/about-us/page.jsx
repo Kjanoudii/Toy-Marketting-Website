@@ -53,7 +53,7 @@ export default function about() {
   const { attributes } = myData;
 
   useEffect(() => {
-    fillDot(currentImage);
+    fillDot(0);
   }, []);
 
   const nextImage = () => {
@@ -75,17 +75,15 @@ export default function about() {
     fillDot(imageIndex);
   };
 
-  const fillDot = (imageIndex) => {
+  const fillDot = (imageIndex = 0) => {
+    const dot = document.getElementById(`dot-${imageIndex}`);
     const allDots = document.querySelectorAll(".c-dot");
     allDots.forEach((contactElement) => {
       contactElement.classList.remove("c-dot");
     });
 
-    const dot = document.getElementById(`dot-${imageIndex}`);
-    // dot.classList.add("c-dot");
+    dot?.classList?.add("c-dot");
   };
-  
-
 
   if (!data) return <LoadingScreen />;
   if (!imagesData) return <LoadingScreen />;

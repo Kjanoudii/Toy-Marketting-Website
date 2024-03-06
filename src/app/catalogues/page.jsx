@@ -59,7 +59,7 @@ export default function page() {
     catalogs = catalogsData?.data;
     console.log(catalogs);
   }
-let myArray = []
+  let myArray = [];
   if (!dataAttributes || !catalogs)
     return (
       <main>
@@ -70,11 +70,14 @@ let myArray = []
   if (catalogsPageError) return "error";
   return (
     <div className="max-h-full">
-      <div className="bg-blue-200 h-16 flex justify-between items-center px-4 lg:px-28">
-        <h2 className="lg:pl-2 text-lg ">
+      <div className="bg-blue-200 h-16  flex justify-between items-center px-4 lg:px-28">
+        <h2 className="lg:pl-2 text-lg" style={{ textTransform: "uppercase" }}>
           {dataAttributes.title.toUpperCase()}
         </h2>
-        <p className="lg:pr-2 text-gray-500">Home / Contact Us</p>
+        <p className="lg:pr-2 text-gray-400 ">
+          <span className="underline pr-4">Home</span>/
+          <span className="underline pl-4">Catalogues</span>
+        </p>
       </div>
 
       <main className="max-h-full py-8">
@@ -111,22 +114,24 @@ let myArray = []
                 ? catalog
                 : catalog.attributes.title.toLowerCase().includes(search);
             })
-            .filter((catalog, index) => {
-              if (catalog.attributes.category === "Baby & Nursery") {
-                    return (
-                  <NurseryCatalog
-                    key={index}
-                    name={catalog.attributes.title}
-                    url={catalog.attributes.catalog_cover.data.attributes.url}
-                    catalogUrl={catalog.attributes.catalog_file.data}
-                    clas={index = catalogs.length -1
-                        ? "block mx-auto"
-                        : "inline-block lg:mx-1"
-                    }
-                    handleClick={() => console.log(index)}
-                  />
-                );
-              }
+            .filter((catalog) => {
+              return catalog.attributes.category === "Baby & Nursery";
+            })
+            .map((catalog, index, array) => {
+              return (
+                <NurseryCatalog
+                  key={index}
+                  name={catalog.attributes?.title}
+                  url={catalog.attributes?.catalog_cover.data.attributes.url}
+                  catalogUrl={catalog.attributes?.catalog_file.data}
+                  className={
+                    index === array.length - 1
+                      ? "block mx-auto"
+                      : "inline-block lg:mx-1.5"
+                  }
+                  handleClick={() => console.log(index)}
+                />
+              );
             })}
         </section>
         <div className="text-center mt-16 text-gray-600">

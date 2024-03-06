@@ -1,14 +1,21 @@
 import React from "react";
 
-export default function layerButton({ catalogUrl, children }) {
+export default function layerButton({ catalogUrl, children, catalogUrlName }) {
+  //  const api = "https://api.toymarkettrading.com";
   const handleDownload = () => {
     // Create an anchor element
-    window.open(catalogUrl, "_blank");
+    // window.open(catalogUrl, "_blank");
+    // console.log(catalogUrl);
 
-    // const anchor = document.createElement("a");
-    // anchor.href = catalogUrl; // Set the href attribute to the catalog URL
-    // anchor.download = "catalog.pdf"; // Set the download attribute with the desired file name
-    // anchor.click(); // Programmatically trigger the click event to start the download
+    const anchor = document.createElement("a");
+    anchor.href = catalogUrl;
+    anchor.download = catalogUrlName;
+
+    document.body.appendChild(anchor);
+
+    anchor.click();
+
+    document.body.removeChild(anchor);
   };
 
   return (

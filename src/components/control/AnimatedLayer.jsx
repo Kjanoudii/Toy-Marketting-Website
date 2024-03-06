@@ -13,8 +13,11 @@ export default function AnimatedLayer({ catalogUrl }) {
 
   return (
     <div className="group-hover:h-full layer z-1 group flex justify-center">
-      <Button catalogUrl={`${apiVar}${catalogUrl?.attributes?.url}`}>
-      {"DOWNLOAD CATALOG"}
+      <Button
+        catalogUrl={`${apiVar}${catalogUrl?.attributes?.url}`}
+        catalogUrlName={`${apiVar}${catalogUrl?.attributes?.name}`}
+      >
+        {"DOWNLOAD CATALOG"}
       </Button>
     </div>
   );

@@ -5,7 +5,7 @@ const apiVar = "https://api.toymarkettrading.com";
 import { formatDate } from "@/src/functions/functions";
 export default function LastestNewsItem({ date, title, imgUrl }) {
   return (
-    <div className="mt-4 inline-block c-thin-border mx-2 overflow-hidden w-96">
+    <div className="mt-4 inline-block c-thin-border mx-2  w-96">
       <div className="relative group cursor-pointer overflow-hidden w-full">
         <Image
           className="block mx-auto"

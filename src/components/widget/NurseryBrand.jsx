@@ -8,9 +8,9 @@ export default function NurseryCatalog({ name, url, className }) {
   return (
     <div
       className={`c-thin-border ${className} 
-      shadow-outline w-60 max-h-78 bg-slate-100 lg:my-2 my-1 `}
+      shadow-outline w-60 max-h-72 bg-slate-100 lg:my-2 my-1 `}
     >
-      <div className="relative group cursor-pointer flex h-64">
+      <div className="relative group cursor-pointer flex h-60">
         <Image
           className="block m-auto"
           src={`${apiVar}${url}`}

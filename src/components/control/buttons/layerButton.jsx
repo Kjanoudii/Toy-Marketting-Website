@@ -3,12 +3,12 @@ import React from "react";
 export default function layerButton({ catalogUrl, children, catalogUrlName }) {
   //  const api = "https://api.toymarkettrading.com";
   const handleDownload = () => {
-    // Create an anchor element
     // window.open(catalogUrl, "_blank");
     // console.log(catalogUrl);
 
     const anchor = document.createElement("a");
-    anchor.href = catalogUrl;
+    anchor.href = `https://api.toymarkettrading.com${catalogUrl}`;
+    anchor.target = "_blank";
     anchor.download = catalogUrlName;
 
     document.body.appendChild(anchor);

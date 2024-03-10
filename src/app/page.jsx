@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import ToyBrands from "../components/widget/ToyBrands.jsx";
 import React, { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 // import CldVideoPlayer from "next-cloudinary"
 // import ReactPlayer from "react-player";
 // import ReactPlayer from 'react-player/youtube'
@@ -20,8 +21,6 @@ import NurseryBrand from "../components/widget/NurseryBrand";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 export default function page() {
-  
-  
   const fillDot = (imageIndex = 0) => {
     const dot = document.getElementById(`dot-${imageIndex}`);
     const allDots = document.querySelectorAll(".c-dot");
@@ -47,7 +46,7 @@ export default function page() {
     }).then((response) => response.json());
   };
   const apiVar = "https://api.toymarkettrading.com";
-  
+
   useEffect(() => {
     fillDot();
   }, []);
@@ -58,8 +57,8 @@ export default function page() {
   } = useSWR(
     "https://api.toymarkettrading.com/api/News-Items?populate=deep",
     fetcher
-    );
-    const {
+  );
+  const {
     data: homePData,
     error: homePageError,
     isLoading: homePageLoading,
@@ -102,7 +101,11 @@ export default function page() {
       <div className="max-h-screen">
         <Image
           className="max-w-full max-h-full mb-8"
-          src={frontImg}
+          // src={`https://api.toymarkettrading.com/uploads/front_img_c9a5f1c3fa.jpg`}
+          src={`${apiVar}${homePageData.attributes.banner_image_mobile.data.attributes?.url}`}
+          width={1200}
+          height={1000}
+          style={{ width: "100%" }}
           alt="Description of the front image"
         />
         <div className="text-center mt-16 text-gray-600">
@@ -131,20 +134,27 @@ export default function page() {
         /> */}
 
         <video className="lg:mt-2 mb-auto" controls width={"643px"}>
-          <source src={frontVideo} type="video/mp4" />
+          <source
+            src={`${apiVar}${homePageData.attributes.video.data.attributes.url}`}
+            type="video/mp4"
+          />
         </video>
         <Image
           className="lg:max-w-95 lg:mt-0 mt-6 lg:ml-15"
-          src={partnerWithUs}
+          src={`${apiVar}${homePageData.attributes.partner_image.data.attributes.url}`}
           alt="Description of the front image"
+          width={380}
+          height={400}
         />
       </div>
       <div className="text-center pt-24 pb-4 text-gray-600 w-full ">
         <div className="line-container inline-block relative">
-          <span className="text-3xl font-bold ">LATEST NEWS & UPDATES</span>
+          <span className="text-3xl font-bold ">
+            {/* "LATEST NEWS & UPDATES" */}
+            {homePageData.attributes.baby_title}
+          </span>
         </div>
       </div>
-
       <section className="flex px-10 pb-10 justify-center">
         {/* LASTEST NEWS ITEMS */}
         {newsItemsData.data.slice(0, 3).map((item, index) => {
@@ -159,15 +169,16 @@ export default function page() {
           );
         })}
       </section>
-
-      <Button>
-        <p className="p-3">VIEW ALL</p>
-      </Button>
-
+      <Link href="/news-updates">
+        <Button>
+          <p className="p-3">VIEW ALL</p>
+        </Button>
+      </Link>
+      {/* "toy_title": "BABY & NURSERY BRANDS PORTFOLIO", */}
       <div className="text-center mt-16 text-gray-600">
         <div className="line-container inline-block relative">
           <span className="text-3xl font-bold ">
-            {homePageData.attributes.baby_title}
+            {homePageData.attributes.toy_title}
           </span>
         </div>
       </div>
@@ -190,12 +201,12 @@ export default function page() {
               );
             })}
         </section>
-        <section className="w-2/6 h-full relative">
+        <section className="w-4/12 h-full relative px-1">
           <div
             onClick={prevImage}
             className="group rounded-full p-2 bg-blue-600 cursor-pointer 
             absolute top-3/3 lg:top-80
-             left-1.5 transform translate-y-1/2 z-10 hover:bg-slate-50"
+             left-1.3 transform translate-y-1/2 z-10 hover:bg-slate-50"
           >
             <BsChevronCompactLeft
               className="text-3xl font-extrabold
@@ -245,13 +256,10 @@ export default function page() {
           </div>
         </section>
       </div>
-
       <div>
         <div className="text-center mt-16 text-gray-600">
           <div className="line-container inline-block relative">
-            <span className="text-3xl font-bold ">
-              {homePageData.attributes.toy_title}
-            </span>
+            <span className="text-3xl font-bold ">TOY BRANDS PORTFOLIO</span>
           </div>
         </div>
 

@@ -7,7 +7,7 @@ export default function ToyBrands({ name, url }) {
   const apiVar = "https://api.toymarkettrading.com";
   return (
     <div
-      className="toybrand c-thin-border inline-block shadow-outline 
+      className="toybrand c-thin-border inline-block 
      bg-slate-100 mx-auto lg:mr-4 my-7 "
     >
       <div className="py-0 relative cursor-pointer group flex h-full justify-center items-center">

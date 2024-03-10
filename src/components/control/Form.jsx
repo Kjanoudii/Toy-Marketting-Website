@@ -1,8 +1,11 @@
+/* eslint-disable react/no-unknown-property */
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
 // import Input from "./Input";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReactMapGL from "react-map-gl";
 import Button from "./buttons/Button";
+// import ReCAPTCHA from "react-recaptcha-v3";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import moment from "moment";
@@ -14,14 +17,27 @@ import NewPhoneInput from "./new/NewPhoneInput";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { fetchCountryData, getCurrentDate } from "../../functions/functions.js";
 import LoadingScreen from "../layout/LoadingScreen";
+import verifyCaptchaAction from "../../services/recaptcha";
 export default function Form() {
   const phoneUtil = PhoneNumberUtil.getInstance();
   const [defaultCountry, setDefaultCountry] = useState("US");
-  const [reCaptcha, setReCaptcha] = useState("");
+  // const [reCaptcha, setReCaptcha] = useState("");
 
   const [phone, setPhone] = useState(null);
   const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
+  // const Map = () => {
+  //   const [viewport, setViewport] = useState({
+  //     latitude: 37.7577,
+  //     longitude: -122.4376,
+  //     zoom: 8
+  //   });
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  // const [recaptchaToken, setRecaptchaToken] = useState("");
 
+  // const handleRecaptchaVerify = (token) => {
+  //   // Handle the token verification or any action you want to perform
+  //   setRecaptchaToken(token);
+  // };
   const fetcher = (...args) => {
     return fetch(...args, {
       headers: {
@@ -48,7 +64,10 @@ export default function Form() {
       return false;
     }
   };
+  
 
+  // const [submitEnabled, setSubmitEnabled] = useState(false);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -81,6 +100,20 @@ export default function Form() {
   });
 
   const onSubmit = async (formData) => {
+
+      try {
+      // if the component is not mounted yet
+      if (!executeRecaptcha) {
+        console.error("reCAPTCHA has not been loaded");
+        return;
+      }
+      // Perform reCAPTCHA validation
+      const token = await executeRecaptcha("onSubmit");
+      const captchaVerified = await verifyCaptchaAction(token);
+      if (!captchaVerified) {
+        throw new Error("Captcha verification failed");
+      }
+      
     console.log(formData);
     // let phoneNb = phone.toString()
 
@@ -99,13 +132,14 @@ export default function Form() {
     };
     // const id = uuidv4();
     // const currentDate = new Date().toISOString();
-    console.log(data);
+    console.log("data to be submitted: ", data);
+    console.log("Stringify: ", JSON.stringify(data));
     // // Add the ID and current date to the form data
     // formData.id = null;
     // formData.date = null;
     try {
       const response = await fetch(
-        "https://api.toymarkettrading.com/api/Contact-Requests",
+        "https://api.toymarkettrading.com/api/contact-requests",
         {
           method: "POST",
           headers: {
@@ -126,22 +160,27 @@ export default function Form() {
     } catch (error) {
       console.error("Error submitting form:", error);
     }
-  };
-  const handlePhoneNumberChange = useCallback(
-    (value) => {
-      const isValid = isPhoneValid(value);
-      if (!isValid || !value) {
-        setError("phone", {
-          type: "manual",
-          message: "Invalid phone number",
-        });
-      } else {
-        setPhone(value);
-        setValue("phone", value);
-      }
-    },
-    [isPhoneValid, setError, clearErrors]
-  );
+   } catch (error) {
+    console.error("Error submitting form:", error);
+  }
+}
+
+  
+const handlePhoneNumberChange = useCallback(
+  (value) => {
+    const isValid = isPhoneValid(value);
+    if (!isValid || !value) {
+      setError("phone", {
+        type: "manual",
+        message: "Invalid phone number",
+      });
+    } else {
+      setPhone(value);
+      setValue("phone", value);
+    }
+  },
+  [isPhoneValid, setError, clearErrors]
+);
 
   if (isLoading) return <LoadingScreen />;
   if (!data) return error;
@@ -152,7 +191,7 @@ export default function Form() {
     >
       <input
         className="c-thin-border block bg-transparent w-full mb-5 py-2 px-4 placeholder-gray-500 focus:outline-none"
-        placeholder={"first name"}
+        placeholder={"First Name"}
         {...register("firstName")}
       />
       <p className="text-red-500">{errors.firstName?.message}</p>
@@ -166,14 +205,14 @@ export default function Form() {
 
       <input
         className="c-thin-border block bg-transparent w-full mb-5 py-2 px-4 placeholder-gray-500 focus:outline-none"
-        placeholder="last name"
+        placeholder="Last Name"
         {...register("lastName")}
         // onChange={onChange}
       />
       <p className="text-red-500">{errors.lastName?.message}</p>
       <input
         className="c-thin-border block bg-transparent w-full mb-5 py-2 px-4 placeholder-gray-500 focus:outline-none"
-        placeholder="email"
+        placeholder="Email"
         {...register("email")}
       />
 
@@ -189,16 +228,13 @@ export default function Form() {
         onChange={handlePhoneNumberChange}
       />
       <textarea
-        className="c-thin-border w-80 lg:w-full h-36 my-4"
+        className="c-thin-border w-80 lg:w-full h-36 my-4 p-3"
         {...register("message")}
+        placeholder="Write your message here..."
       />
       <p className="text-red-500">{errors.message?.message}</p>
-      <ReCAPTCHA
-        sitekey="6LfI-QEpAAAAADGyB4_PzHxZivin-6ehEhr1rFx9"
-        onChange={(val) => {
-          setReCaptcha(val);
-        }}
-      />
+      
+      <verifyCaptchaAction/>
       <Button type="submit">
         <p className="p-4">SUBMIT</p>
       </Button>

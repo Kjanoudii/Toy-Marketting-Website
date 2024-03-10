@@ -7,11 +7,11 @@ export default function NurseryCatalog({ name, url, catalogUrl, className, handl
   const apiVar = "https://api.toymarkettrading.com";
   return (
     <div
-      className={`c-thin-border ${className} shadow-outline max-w-60 max-h-90
+      className={`c-thin-border ${className} shadow-outline max-w-60 max-h-72
      bg-slate-100 my-1.5 ` }
      onClick={handleClick}
     >
-      <div className="relative group cursor-pointer flex h-72">
+      <div className="relative group cursor-pointer flex h-60">
         <Image
           className="block m-auto "
           src={`${apiVar}${url}`}

@@ -8,7 +8,7 @@ export default function AnimatedLayer({ catalogUrl }) {
   //     text = "DOWNLOAD CATALOG";
   //   }
 
-  const apiVar = "https://api.toymarkettrading.com";
+  // const apiVar = "https://api.toymarkettrading.com";
 
   return (
     <div className="group-hover:h-full layer z-1 group flex justify-center">

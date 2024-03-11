@@ -34,10 +34,7 @@ export default function Form() {
   const { executeRecaptcha } = useGoogleReCaptcha();
   // const [recaptchaToken, setRecaptchaToken] = useState("");
 
-  // const handleRecaptchaVerify = (token) => {
-  //   // Handle the token verification or any action you want to perform
-  //   setRecaptchaToken(token);
-  // };
+  
   const fetcher = (...args) => {
     return fetch(...args, {
       headers: {
@@ -64,10 +61,9 @@ export default function Form() {
       return false;
     }
   };
-  
 
   // const [submitEnabled, setSubmitEnabled] = useState(false);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -100,9 +96,7 @@ export default function Form() {
   });
 
   const onSubmit = async (formData) => {
-
-      try {
-      // if the component is not mounted yet
+    try {
       if (!executeRecaptcha) {
         console.error("reCAPTCHA has not been loaded");
         return;
@@ -113,74 +107,73 @@ export default function Form() {
       if (!captchaVerified) {
         throw new Error("Captcha verification failed");
       }
-      
-    console.log(formData);
-    // let phoneNb = phone.toString()
 
-    const data = {
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      email: formData.email,
-      phone_number: phone,
-      message: formData.message,
-      submit_date: getCurrentDate(),
-      // submit_date: "2024-03-01T14:30:00.000Z",
-      status: "New",
+      console.log(formData);
+      // let phoneNb = phone.toString()
 
-      // createdAt: "2024-02-28T21:37:26.545Z",
-      // updatedAt: "2024-02-28T21:37:26.545Z",
-    };
-    // const id = uuidv4();
-    // const currentDate = new Date().toISOString();
-    console.log("data to be submitted: ", data);
-    console.log("Stringify: ", JSON.stringify(data));
-    // // Add the ID and current date to the form data
-    // formData.id = null;
-    // formData.date = null;
-    try {
-      const response = await fetch(
-        "https://api.toymarkettrading.com/api/contact-requests",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify(data),
+      const data = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone_number: phone,
+        message: formData.message,
+        submit_date: getCurrentDate(),
+        // submit_date: "2024-03-01T14:30:00.000Z",
+        status: "New",
+
+        // createdAt: "2024-02-28T21:37:26.545Z",
+        // updatedAt: "2024-02-28T21:37:26.545Z",
+      };
+      // const id = uuidv4();
+      // const currentDate = new Date().toISOString();
+      console.log("data to be submitted: ", data);
+      console.log("Stringify: ", JSON.stringify(data));
+      // // Add the ID and current date to the form data
+      // formData.id = null;
+      // formData.date = null;
+      try {
+        const response = await fetch(
+          "https://api.toymarkettrading.com/api/contact-requests",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(data),
+          }
+        );
+
+        if (response.ok) {
+          mutate("https://api.toymarkettrading.com/api/Contact-Requests");
+          console.log("Form submitted successfully");
+          // Optionally, you can handle the success response here
+        } else {
+          console.error("Failed to submit form");
         }
-      );
-
-      if (response.ok) {
-        mutate("https://api.toymarkettrading.com/api/Contact-Requests");
-        console.log("Form submitted successfully");
-        // Optionally, you can handle the success response here
-      } else {
-        console.error("Failed to submit form");
+      } catch (error) {
+        console.error("Error submitting form:", error);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
-   } catch (error) {
-    console.error("Error submitting form:", error);
-  }
-}
+  };
 
-  
-const handlePhoneNumberChange = useCallback(
-  (value) => {
-    const isValid = isPhoneValid(value);
-    if (!isValid || !value) {
-      setError("phone", {
-        type: "manual",
-        message: "Invalid phone number",
-      });
-    } else {
-      setPhone(value);
-      setValue("phone", value);
-    }
-  },
-  [isPhoneValid, setError, clearErrors]
-);
+  const handlePhoneNumberChange = useCallback(
+    (value) => {
+      const isValid = isPhoneValid(value);
+      if (!isValid || !value) {
+        setError("phone", {
+          type: "manual",
+          message: "Invalid phone number",
+        });
+      } else {
+        setPhone(value);
+        setValue("phone", value);
+      }
+    },
+    [isPhoneValid, setError, clearErrors]
+  );
 
   if (isLoading) return <LoadingScreen />;
   if (!data) return error;
@@ -233,8 +226,8 @@ const handlePhoneNumberChange = useCallback(
         placeholder="Write your message here..."
       />
       <p className="text-red-500">{errors.message?.message}</p>
-      
-      <verifyCaptchaAction/>
+
+      <verifyCaptchaAction />
       <Button type="submit">
         <p className="p-4">SUBMIT</p>
       </Button>

@@ -6,9 +6,9 @@ import fbIcon from "../../assets/images/facebook-icon.svg";
 export default function SocialMediaBtn({ icon, text, link }) {
   const myicon = icon == "instagram" ? instaIcon : fbIcon;
   return (
-    <div className="inline-block box-border ">
+    <div className="inline-block box-border  ">
       <a href={link}>
-        <div className="c-media-btn flex items-center ">
+        <div className="c-media-btn flex items-center transition-all duration-300 hover:bg-blue-500">
           <p className="pl-3">
             <Image src={myicon} className="w-9" />
           </p>

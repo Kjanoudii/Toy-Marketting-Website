@@ -2,18 +2,15 @@
 "use client";
 import { motion } from "framer-motion";
 import ToyBrands from "../components/widget/ToyBrands.jsx";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import VideoLayer from "../components/control/VideoLayer.jsx";
 // import CldVideoPlayer from "next-cloudinary"
-// import ReactPlayer from "react-player";
-// import ReactPlayer from 'react-player/youtube'
+
 import useSWR from "swr";
 import { variant1, variant2 } from "../data/data.js";
 import { useState } from "react";
-import frontImg from "../assets/images/front-img.jpg";
-import frontVideo from "../../public/tmt-video.mp4";
-import partnerWithUs from "../assets/partner-with-us.png";
 import LastestNewsItem from "../components/widget/LastestNewsItem";
 import LoadingScreen from "../components/layout/LoadingScreen";
 import Button from "../components/control/buttons/Button";
@@ -33,6 +30,16 @@ export default function page() {
   const goToImg = (imageIndex) => {
     setCurrentImage(imageIndex);
     fillDot(imageIndex);
+  };
+  const videoRef = useRef(null); // Define videoRef using useRef()
+  const [showControls, setShowControls] = useState(false); // Define showControls state
+
+  const handleVideoClick = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.play();
+      setShowControls(true);
+    }
   };
   const accessToken =
     "7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154";
@@ -76,10 +83,10 @@ export default function page() {
     itemsData = newsItemsData.data;
     homePageData = homePData.data;
     // homePageData = homePData.data;
-    console.log("news item data" + newsItemsData.data);
-    console.log(homePageData.attributes);
+ 
     images = homePageData.attributes.toy_banner;
   }
+
   const nextImage = () => {
     const nextIndex = currentImage === images.length - 1 ? 0 : currentImage + 1;
     setCurrentImage(nextIndex);
@@ -117,28 +124,29 @@ export default function page() {
         </div>
       </div>
       {/* VIDEO AND PICTURE */}
-      <div className="flex flex-col pt-4 mt-0 lg:flex-row px-8 lg:px-28 lg:pt-5 home-video-container ">
-        {/* <CldVideoPlayer
-       
-       src={"./tmt-video.mp4"}
-       /> */}
+      <div
+        className="flex flex-col pt-4 mt-0 lg:flex-row px-8 lg:px-28 lg:pt-5
+       home-video-container "
+      >
+        <div
+          className="relative cursor-pointer group"
+          onClick={handleVideoClick}
+        >
+          <video
+            ref={videoRef}
+            className="lg:mt-2 mb-auto "
+            poster={`${apiVar}${homePageData.attributes.video_cover_image.data.attributes.url}`}
+            width={"643px"}
+            controls={showControls} // Show controls conditionally
+          >
+            <source
+              src={`${apiVar}${homePageData.attributes.video.data.attributes.url}`}
+              type="video/mp4"
+            />
+          </video>
 
-        {/* <ReactPlayer
-          className="mt-0 mb-auto"
-          url={frontVideo}
-          controls
-          type="video/mp4"
-   
-          width="645px"
-          height="auto"
-        /> */}
-
-        <video className="lg:mt-2 mb-auto" controls width={"643px"}>
-          <source
-            src={`${apiVar}${homePageData.attributes.video.data.attributes.url}`}
-            type="video/mp4"
-          />
-        </video>
+          {!showControls && <VideoLayer />}
+        </div>
         <Image
           className="lg:max-w-95 lg:mt-0 mt-6 lg:ml-15"
           src={`${apiVar}${homePageData.attributes.partner_image.data.attributes.url}`}

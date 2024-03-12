@@ -4,7 +4,7 @@ import pinIcon from "../../assets/images/pin-icon.png";
 import phoneIcon from "../../assets/images/phone-icon.png";
 import mailIcon from "../../assets/images/mail-icon.png";
 import ContactDetails from "../widget/ContactDetails";
-
+import SubscribeInput from "../control/SubscribeInput";
 export default function Footer() {
   return (
     <footer>
@@ -17,16 +17,7 @@ export default function Footer() {
             RIGHT AT YOUR INBOX.
           </p>
         </div>
-        <div className="pt-2 lg:h-12 m-0 flex items-center justify-center ">
-          <input
-            className="bg-transparent py-2 px-4 mb-1 placeholder-gray-500 focus:outline-none"
-            placeholder="Your Email Here"
-          />
-
-          <button className="lg:w-32 h-12 bg-blue-600 text-white px-4 py-2 text-base">
-            SUBSCRIBE
-          </button>
-        </div>
+       <SubscribeInput />
       </section>
 
       <section className="mt-8 flex lg:flex-row flex-col justify-between items-center">

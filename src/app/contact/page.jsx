@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 // import Image from "next/image";
 import "react-phone-input-2/lib/style.css";
-// import ReactMapGL from "react-map-gl";
 
+import useSWR from "swr";
+import Map from "../../components/layout/Map";
+// import  MapboxMap from "../../components/widget/Map"
 import Form from "../../components/control/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCoffee } from "@fortawesome/free-solid-svg-icons";
@@ -12,9 +14,44 @@ import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { RecaptchaProviders } from "../../services/useGoogleRecaptcha";
+// import { useDispatch } from "react-redux";
+// import { source, sourcePage, sourceUrl } from "../../components/redux/actions";
+
+// import useCurrentUrl from "../../hooks/useCurrentUrl"
 // import { PhoneNumberUtil } from "google-libphonenumber";
 
 export default function Page() {
+  //  const apiVar = "https://api.toymarkettrading.com";
+  const [sent, setSent] = useState(false);
+
+  const accessToken = `7bded2881091be747903fe989b0c03553b9cc05ae59cfc890a8287ecb4ab61dbe820c94e0c0eefe815077e82e7e9d8552ad9bbe71267928c688e215ca30849dd8ec7fd2d9ebb52cb44d91c41a8a77469e439e84e28fdc55b893d40d7ba019aed10350d61e485150d91164635e089cb6ced4db2271fa5b1693a8b7c71fc1ae154`;
+
+  const fetcher = (...args) => {
+    return fetch(...args, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((response) => response.json());
+  };
+
+  const { data, error, isLoading } = useSWR(
+    "https://api.toymarkettrading.com/api/about-page",
+    fetcher
+  );
+
+  if (isLoading) {
+    console.log("Loading...");
+  } else if (error) {
+    console.error("Error fetching data:", error);
+  } else {
+    console.log(data);
+  }
+
+  //  const url = useCurrentUrl();
+  //  const dispatch = useDispatch();
+  //  useEffect(() => {
+  //    dispatch(sourceUrl(url));
+  //  }, [dispatch, data, url]);
   return (
     <>
       <RecaptchaProviders>
@@ -82,10 +119,19 @@ export default function Page() {
             <h1 className="pl-9 mb-10 font-bold text-3xl text-gray-700">
               DROP US A MESSAGE
             </h1>
-            <Form />
+            {!sent ? (
+              <Form setSend={setSent} />
+            ) : (
+              <p className="border border-green-200 font-thin ml-8 px-3 py-5 bg-indigo-200 rounded-md text-gray-600">
+                Your message has been sent successfully
+              </p>
+            )}
           </section>
         </div>
       </RecaptchaProviders>
+      <section className="flex justify-center ">
+        <Map />
+      </section>
     </>
   );
 }

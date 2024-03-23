@@ -1,10 +1,12 @@
+"use server";
 
 import axios from "axios";
 
 export async function verifyCaptchaAction(token) {
+  const secretKey = "6LfI-QEpAAAAAJNHpWtx1WHiqRhDFIRGcCbUl6du";
   try {
     const response = await axios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`
+      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`
     );
 
     const { success, score } = response.data;

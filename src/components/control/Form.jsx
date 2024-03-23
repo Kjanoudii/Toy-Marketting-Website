@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
+import postStrapiData from "@/src/hooks/useStrapiApi";
 // import Input from "./Input";
 // import ReactMapGL from "react-map-gl";
 import Button from "./buttons/Button";
@@ -8,17 +10,20 @@ import Button from "./buttons/Button";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 // import moment from "moment";
 import * as yup from "yup";
 import useSWR, { mutate } from "swr";
+import toast from "react-hot-toast";
+
 // import { v4 as uuidv4 } from "uuid";
 // import PhoneValidate from "./PhoneInputValidate.jsx";
 import NewPhoneInput from "./new/NewPhoneInput";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { fetchCountryData, getCurrentDate } from "../../functions/functions.js";
 import LoadingScreen from "../layout/LoadingScreen";
-import verifyCaptchaAction from "../../services/recaptcha";
-export default function Form() {
+import { verifyCaptchaAction } from "../../services/recaptcha";
+export default function Form({setSent}) {
   const phoneUtil = PhoneNumberUtil.getInstance();
   const [defaultCountry, setDefaultCountry] = useState("US");
   // const [reCaptcha, setReCaptcha] = useState("");
@@ -34,7 +39,6 @@ export default function Form() {
   const { executeRecaptcha } = useGoogleReCaptcha();
   // const [recaptchaToken, setRecaptchaToken] = useState("");
 
-  
   const fetcher = (...args) => {
     return fetch(...args, {
       headers: {
@@ -83,7 +87,12 @@ export default function Form() {
     email: yup.string().email().required(),
     message: yup.string().required(),
   });
-
+  const defaultValues = {
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  };
   const {
     register,
     handleSubmit,
@@ -91,68 +100,76 @@ export default function Form() {
     setValue,
     setError,
     clearErrors,
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues,
   });
 
+  // const onSubmit = async (formData) => {
+  //   const data = {
+  //     first_name: formData.firstName,
+  //     last_name: formData.lastName,
+  //     email: formData.email,
+  //     phone_number: phone,
+  //     message: formData.message,
+  //     submit_date: getCurrentDate(),
+  //     status: "New",
+  //   };
+
+  //   try {
+  //     // eslint-disable-next-line no-unused-vars
+  //     const response = await postStrapiData("/api/contact-requests", data);
+  //     setSent(true)
+  //     // console.log("Data posted successfully", response);
+  //     //  mutate("https://api.toymarkettrading.com/api/contact-requests");
+  //     toast.success("Your Request submitted successfully!");
+  //     reset();
+  //   } catch (error) {
+  //     console.error("Submission error", error);
+  //     toast.error("An error occurred during submission.");
+  //   }
+
+  //   mutate("https://api.toymarkettrading.com/api/contact-requests");
+
+  //   console.log(data);
+  // };
+
   const onSubmit = async (formData) => {
+    const data = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      phone_number: phone,
+      message: formData.message,
+      submit_date: getCurrentDate(),
+      status: "New",
+    };
+
+    console.log("data to be submitted: ", data);
+
     try {
       if (!executeRecaptcha) {
         console.error("reCAPTCHA has not been loaded");
         return;
       }
+
       // Perform reCAPTCHA validation
       const token = await executeRecaptcha("onSubmit");
       const captchaVerified = await verifyCaptchaAction(token);
+
       if (!captchaVerified) {
         throw new Error("Captcha verification failed");
       }
 
-      console.log(formData);
-      // let phoneNb = phone.toString()
-
-      const data = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        phone_number: phone,
-        message: formData.message,
-        submit_date: getCurrentDate(),
-        // submit_date: "2024-03-01T14:30:00.000Z",
-        status: "New",
-
-        // createdAt: "2024-02-28T21:37:26.545Z",
-        // updatedAt: "2024-02-28T21:37:26.545Z",
-      };
-      // const id = uuidv4();
-      // const currentDate = new Date().toISOString();
-      console.log("data to be submitted: ", data);
-      console.log("Stringify: ", JSON.stringify(data));
-      // // Add the ID and current date to the form data
-      // formData.id = null;
-      // formData.date = null;
+      // Post data to the API endpoint
       try {
-        const response = await fetch(
-          "https://api.toymarkettrading.com/api/contact-requests",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(data),
-          }
-        );
-
-        if (response.ok) {
-          mutate("https://api.toymarkettrading.com/api/Contact-Requests");
-          console.log("Form submitted successfully");
-          // Optionally, you can handle the success response here
-        } else {
-          console.error("Failed to submit form");
-        }
+        const response = await postStrapiData("/api/contact-requests", data);
+        // Assuming you're using toast notifications for displaying messages
+        toast.success("Your Request submitted successfully!");
       } catch (error) {
-        console.error("Error submitting form:", error);
+        console.error("Submission error", error);
+        toast.error("An error occurred during submission.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -177,6 +194,7 @@ export default function Form() {
 
   if (isLoading) return <LoadingScreen />;
   if (!data) return error;
+  
   return (
     <form
       className="lg:pl-9 pl-0 px-7 lg:pr-3"
@@ -188,13 +206,7 @@ export default function Form() {
         {...register("firstName")}
       />
       <p className="text-red-500">{errors.firstName?.message}</p>
-      {/* <Input
-        text="Last Name"
-        name="lastName"
-        // value={formData.lastName}
-        // onChange={handleChange}
-        {...register("lastName")}
-      /> */}
+     
 
       <input
         className="c-thin-border block bg-transparent w-full mb-5 py-2 px-4 placeholder-gray-500 focus:outline-none"
@@ -217,7 +229,7 @@ export default function Form() {
         register={register}
         error={errors.phone}
         value={phone}
-        className={"px-4 custom-phone-input phone c-thin-border"}
+        className={"px-4 custom-phone-input phone c-thin-border "}
         onChange={handlePhoneNumberChange}
       />
       <textarea

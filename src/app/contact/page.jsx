@@ -120,7 +120,7 @@ export default function Page() {
               DROP US A MESSAGE
             </h1>
             {!sent ? (
-              <Form setSend={setSent} />
+              <Form setSent={setSent} />
             ) : (
               <p className="border border-green-200 font-thin ml-8 px-3 py-5 bg-indigo-200 rounded-md text-gray-600">
                 Your message has been sent successfully

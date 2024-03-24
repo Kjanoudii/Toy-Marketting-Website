@@ -6,7 +6,6 @@ import postStrapiData from "@/src/hooks/useStrapiApi";
 // import Input from "./Input";
 // import ReactMapGL from "react-map-gl";
 import Button from "./buttons/Button";
-// import ReCAPTCHA from "react-recaptcha-v3";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

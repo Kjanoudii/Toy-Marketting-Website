@@ -13,7 +13,7 @@ import { faAt } from "@fortawesome/free-solid-svg-icons";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-// import { RecaptchaProviders } from "../../services/useGoogleRecaptcha";
+import { RecaptchaProviders } from "../../services/useGoogleRecaptcha";
 // import { useDispatch } from "react-redux";
 // import { source, sourcePage, sourceUrl } from "../../components/redux/actions";
 
@@ -54,7 +54,7 @@ export default function Page() {
   //  }, [dispatch, data, url]);
   return (
     <>
-      {/* <RecaptchaProviders> */}
+      <RecaptchaProviders>
         <div className="bg-blue-200 h-16 flex justify-between items-center px-4 lg:px-28">
           <h2 className="lg:pl-2 text-lg">CONTACT US</h2>
           <p className="lg:pr-2 text-gray-400 ">
@@ -128,7 +128,7 @@ export default function Page() {
             )}
           </section>
         </div>
-      {/* </RecaptchaProviders> */}
+      </RecaptchaProviders>
       <section className="flex justify-center ">
         <Map />
       </section>

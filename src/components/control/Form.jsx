@@ -23,7 +23,7 @@ import { PhoneNumberUtil } from "google-libphonenumber";
 import { fetchCountryData, getCurrentDate } from "../../functions/functions.js";
 import LoadingScreen from "../layout/LoadingScreen";
 import { verifyCaptchaAction } from "../../services/recaptcha";
-export default function Form({setSent}) {
+export default function Form({ setSent }) {
   const phoneUtil = PhoneNumberUtil.getInstance();
   const [defaultCountry, setDefaultCountry] = useState("US");
   // const [reCaptcha, setReCaptcha] = useState("");
@@ -106,35 +106,6 @@ export default function Form({setSent}) {
     defaultValues,
   });
 
-  // const onSubmit = async (formData) => {
-  //   const data = {
-  //     first_name: formData.firstName,
-  //     last_name: formData.lastName,
-  //     email: formData.email,
-  //     phone_number: phone,
-  //     message: formData.message,
-  //     submit_date: getCurrentDate(),
-  //     status: "New",
-  //   };
-
-  //   try {
-  //     // eslint-disable-next-line no-unused-vars
-  //     const response = await postStrapiData("/api/contact-requests", data);
-  //     setSent(true)
-  //     // console.log("Data posted successfully", response);
-  //     //  mutate("https://api.toymarkettrading.com/api/contact-requests");
-  //     toast.success("Your Request submitted successfully!");
-  //     reset();
-  //   } catch (error) {
-  //     console.error("Submission error", error);
-  //     toast.error("An error occurred during submission.");
-  //   }
-
-  //   mutate("https://api.toymarkettrading.com/api/contact-requests");
-
-  //   console.log(data);
-  // };
-
   const onSubmit = async (formData) => {
     const data = {
       first_name: formData.firstName,
@@ -146,36 +117,65 @@ export default function Form({setSent}) {
       status: "New",
     };
 
-    console.log("data to be submitted: ", data);
-
     try {
-      if (!executeRecaptcha) {
-        console.error("reCAPTCHA has not been loaded");
-        return;
-      }
-
-      // Perform reCAPTCHA validation
-      const token = await executeRecaptcha("onSubmit");
-      const captchaVerified = await verifyCaptchaAction(token);
-
-      if (!captchaVerified) {
-        throw new Error("Captcha verification failed");
-      }
-
-      // Post data to the API endpoint
-      try {
-        const response = await postStrapiData("/api/contact-requests", data);
-        setSent(true)
-        // Assuming you're using toast notifications for displaying messages
-        toast.success("Your Request submitted successfully!");
-      } catch (error) {
-        console.error("Submission error", error);
-        toast.error("An error occurred during submission.");
-      }
+      // eslint-disable-next-line no-unused-vars
+      const response = await postStrapiData("/api/contact-requests", data);
+      setSent(true);
+      // console.log("Data posted successfully", response);
+      //  mutate("https://api.toymarkettrading.com/api/contact-requests");
+      toast.success("Your Request submitted successfully!");
+      reset();
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Submission error", error);
+      toast.error("An error occurred during submission.");
     }
+
+    mutate("https://api.toymarkettrading.com/api/contact-requests");
+
+    console.log(data);
   };
+
+  // const onSubmit = async (formData) => {
+  //   const data = {
+  //     first_name: formData.firstName,
+  //     last_name: formData.lastName,
+  //     email: formData.email,
+  //     phone_number: phone,
+  //     message: formData.message,
+  //     submit_date: getCurrentDate(),
+  //     status: "New",
+  //   };
+
+  //   console.log("data to be submitted: ", data);
+
+  //   try {
+  //     if (!executeRecaptcha) {
+  //       console.error("reCAPTCHA has not been loaded");
+  //       return;
+  //     }
+
+  //     // Perform reCAPTCHA validation
+  //     const token = await executeRecaptcha("onSubmit");
+  //     const captchaVerified = await verifyCaptchaAction(token);
+
+  //     if (!captchaVerified) {
+  //       throw new Error("Captcha verification failed");
+  //     }
+
+  //     // Post data to the API endpoint
+  //     try {
+  //       const response = await postStrapiData("/api/contact-requests", data);
+  //       setSent(true)
+  //       // Assuming you're using toast notifications for displaying messages
+  //       toast.success("Your Request submitted successfully!");
+  //     } catch (error) {
+  //       console.error("Submission error", error);
+  //       toast.error("An error occurred during submission.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error submitting form:", error);
+  //   }
+  // };
 
   const handlePhoneNumberChange = useCallback(
     (value) => {
@@ -195,7 +195,7 @@ export default function Form({setSent}) {
 
   if (isLoading) return <LoadingScreen />;
   if (!data) return error;
-  
+
   return (
     <form
       className="lg:pl-9 pl-0 px-7 lg:pr-3"
@@ -207,7 +207,6 @@ export default function Form({setSent}) {
         {...register("firstName")}
       />
       <p className="text-red-500">{errors.firstName?.message}</p>
-     
 
       <input
         className="c-thin-border block bg-transparent w-full mb-5 py-2 px-4 placeholder-gray-500 focus:outline-none"

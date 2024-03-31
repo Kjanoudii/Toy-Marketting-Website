@@ -4,13 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { useRouter } from "next/navigation";
+import logOutIcon from "../../assets/images/icons8-log-out.png";
 import tmtLogo from "../../assets/tmt-logo.png";
 
 const navLinks = [
   {
     name: "HOME",
-    href: "/",
+    href: "/home",
   },
   {
     name: "ABOUT US",
@@ -28,10 +29,18 @@ const navLinks = [
   },
 ];
 
-export default function Header() {
+export default function Header({ setLoggedIn, loggedIn }) {
   const pathName = usePathname();
 
   const [show, setShow] = useState(false);
+  const router = useRouter();
+  const handleLogout = () => {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("password");
+
+    setLoggedIn(false);
+    router.push("/");
+  };
 
   return (
     <header className="h-auto bg-white">
@@ -44,9 +53,10 @@ export default function Header() {
               alt="Description of the front image"
             />
           </div>
+
           <div
             className="hidden lg:flex flex-col ml-2 
-          pb-12 pl-96 xl:pb-0 lg:flex-row lg:space-x-7 pt-11 lg:mr-3 lg:leading-tight text-gray-700"
+            pb-12 pl-96 xl:pb-0 lg:flex-row lg:space-x-7 pt-11 lg:mr-3 lg:leading-tight text-gray-700"
           >
             {navLinks.map((item, index) => {
               const isActive = pathName === item.href;
@@ -64,7 +74,7 @@ export default function Header() {
             })}
           </div>
 
-          <div className="lg:mr-0 mr-40 ">
+          <div className="lg:mr-0 mr-40 flex ">
             <svg
               className="cursor-pointer lg:hidden"
               onClick={() => setShow(!show)}
@@ -95,6 +105,12 @@ export default function Header() {
                 );
               })}
             </div>
+
+            {/* <Image
+              src={logOutIcon}
+              onClick={handleLogout}
+              className={`cursor-pointer w-8 mt-10 ${loggedIn ? "hidden" : ""}`}
+            /> */}
           </div>
         </div>
       </nav>

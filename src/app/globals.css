@@ -80,6 +80,32 @@ body {
     letter-spacing: 0.04cm;
     font-size: 14.5px;
   }
+  .google-icon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 15px;
+    height: 15px;
+  }
+
+  .google-btn {
+    background-color: rgb(129, 129, 211);
+  }
+  .icon-wrapper {
+    position: absolute;
+    margin: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 2px;
+    background-color: white;
+  }
+
+  .btn-text {
+   
+    color: rgb(27, 20, 20);
+    font-size: 13px;
+    letter-spacing: 0.1px;
+  }
 
   .layer {
     background: transparent;

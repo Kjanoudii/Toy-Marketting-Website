@@ -165,7 +165,7 @@ export default function Form({ setSent }) {
       // Post data to the API endpoint
       try {
         const response = await postStrapiData("/api/contact-requests", data);
-        setSent(true)
+        setSent(true);
         // Assuming you're using toast notifications for displaying messages
         toast.success("Your Request submitted successfully!");
       } catch (error) {

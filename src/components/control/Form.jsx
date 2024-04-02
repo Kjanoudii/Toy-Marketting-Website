@@ -2,7 +2,7 @@
 /* eslint-disable react/no-unknown-property */
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import postStrapiData from "@/src/hooks/useStrapiApi";
+import postStrapiData from "@/src/functions/useStrapiApi";
 // import Input from "./Input";
 // import ReactMapGL from "react-map-gl";
 import Button from "./buttons/Button";

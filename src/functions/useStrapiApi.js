@@ -30,4 +30,7 @@ const postStrapiData = async (path, data) => {
   }
 };
 
+
+
+
 export default postStrapiData;

@@ -19,14 +19,12 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 export default function page() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showControls, setShowControls] = useState(false); 
+  const [showControls, setShowControls] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
-  const videoRef = useRef(null); 
- 
+  const videoRef = useRef(null);
 
   const router = useRouter();
 
- 
   const fillDot = (imageIndex = 0) => {
     const dot = document.getElementById(`dot-${imageIndex}`);
     const allDots = document.querySelectorAll(".c-dot");
@@ -88,7 +86,6 @@ export default function page() {
   } else {
     itemsData = newsItemsData.data;
     homePageData = homePData.data;
-  
 
     images = homePageData.attributes.toy_banner;
   }
@@ -131,8 +128,8 @@ export default function page() {
       </div>
       {/* VIDEO AND PICTURE */}
       <div
-        className="flex flex-col pt-4 mt-0 lg:flex-row px-8 lg:px-28 lg:pt-5
-       home-video-container "
+        className="flex flex-col pt-4 mt-0 lg:flex-row px-8 justify-center lg:pt-5
+       container mx-auto "
       >
         <div
           className="relative cursor-pointer group"
@@ -196,8 +193,8 @@ export default function page() {
           </span>
         </div>
       </div>
-      <div className=" flex justify-center px-24 max-w-full max-h-full">
-        <section className="block mx-auto h-full w-4/6 ">
+      <div className=" flex justify-center  container mx-auto">
+        <section className="grid grid-cols-3 px-8 mx-auto h-full  w-4/6 ">
           {homePageData.attributes.baby_banner
             .slice(0, 10)
             .map((item, index, array) => {
@@ -206,11 +203,7 @@ export default function page() {
                   key={index}
                   name={item.title}
                   url={item.image.data.attributes.url}
-                  className={
-                    index === array.length - 1
-                      ? "block mx-auto"
-                      : "inline-block lg:mx-2"
-                  }
+                  className={"inline-block "}
                 />
               );
             })}
@@ -271,13 +264,13 @@ export default function page() {
         </section>
       </div>
       <div>
-        <div className="text-center mt-16 text-gray-600">
+        <div className="text-center mt-16 text-gray-600 container mx-auto">
           <div className="line-container inline-block relative">
             <span className="text-3xl font-bold ">TOY BRANDS PORTFOLIO</span>
           </div>
         </div>
 
-        <section className="px-28 pb-20 h-full w-full">
+        <section className=" pb-20 container mx-auto">
           {homePageData.attributes.baby_banner.slice(10).map((item, index) => {
             if (
               item &&
@@ -301,7 +294,6 @@ export default function page() {
           })}
         </section>
       </div>
-    
     </div>
   );
 }

@@ -90,7 +90,7 @@ export default function about() {
   if (error) return "error";
   return (
     <>
-      <main className="max-h-full">
+      <main className="max-h-full ">
         <div className="c-image-container flex justify-center">
           <div
             onClick={prevImage}
@@ -145,33 +145,43 @@ export default function about() {
             );
           })}
         </div>
-        <div className="text-center pt-24 lg:pt-14 text-gray-600">
-          <div className="line-container inline-block relative">
+        <div className="text-center  container mx-auto pt-24 lg:pt-14 text-gray-600">
+          <div className="line-container hidden lg:inline-block relative">
             <span className="text-3xl font-bold uppercase ">
               {myData.attributes.title}
             </span>
           </div>
         </div>
       </main>
-      <div className="max-h-full">
-        <section className="h-2/5 pt-0 lg:pt-10 px-8 lg:px-28">
+      <div className="container mx-auto">
+        <section className="h-2/5 pt-0 lg:pt-10 px-8 ">
           <p className="text-slate-500 font-thin">
-            {ReactHtmlParser(attributes.content)}
+            Established in 1965, Toy Market Trading is a pioneer in the
+            distribution of toys in the Lebanese market. With more than 250
+            clients today across Lebanon, Toy Market Trading is the go-to
+            distributor for innovative, renown, international brands. The
+            company is growing its portfolio every day, adding to their roster
+            baby & nursery specialized brands on top of the traditional toy
+            brands. Today, Toy Market Trading’s clients ranges widely across the
+            different private trade channels:
           </p>
         </section>
-        <section className="max-h-2/5 lg:inline-block flex flex-col lg:px-28 pt-14 py-2">
+        <div className="w-full flex justify-center">
+
+        <section className=" grid lg:grid-cols-3 justify-center pt-14 py-2">
           {attributes.clients_range.map((item, index) => {
             return <TradeChannel key={index} text={item.text} />;
           })}
-          <div className="text-center pt-16 text-gray-600">
+        </section>
+        </div>
+          <div className="text-center pt-16 text-gray-600 container mx-auto">
             <div className="line-container mt-2 inline-block relative">
               <span className="text-3xl font-bold">SOCIAL BOX</span>
             </div>
           </div>
-        </section>
       </div>
       <div>
-        <section className="max-h-full pb-14 w-full lg:px-28 px-5">
+        <section className="max-h-full px-5 pb-14 mx-auto justify-center container grid lg:grid-cols-3 grid-cols-1 mt-4 px-5">
           {attributes.social_links.map((item, index) => {
             return (
               <SocialMediaBtn

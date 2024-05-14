@@ -106,11 +106,7 @@ export default function Header({ setLoggedIn, loggedIn }) {
               })}
             </div>
 
-            {/* <Image
-              src={logOutIcon}
-              onClick={handleLogout}
-              className={`cursor-pointer w-8 mt-10 ${loggedIn ? "hidden" : ""}`}
-            /> */}
+        
           </div>
         </div>
       </nav>

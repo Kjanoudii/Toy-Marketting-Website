@@ -124,11 +124,7 @@ export default function page() {
                   name={catalog.attributes?.title}
                   url={catalog.attributes?.catalog_cover.data.attributes.url}
                   catalogUrl={catalog.attributes?.catalog_file.data}
-                  className={
-                    index === array.length - 1
-                      ? "block mx-auto"
-                      : "inline-block lg:mx-1.5"
-                  }
+                  className={"inline-block lg:mx-1.5"}
                   handleClick={() => console.log(index)}
                 />
               );
@@ -149,7 +145,7 @@ export default function page() {
           </div>
         </div>
 
-        <section className="py-4 px-28 max-h-full mt-2">
+        <section className="py-4 pl-24  container mx-auto mt-2">
           {catalogs
             .filter((catalog) => {
               return search === ""

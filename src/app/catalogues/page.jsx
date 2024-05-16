@@ -69,8 +69,8 @@ export default function page() {
 
   if (catalogsPageError) return "error";
   return (
-    <div className="max-h-full">
-      <div className="bg-blue-200 h-16  flex justify-between items-center px-4 lg:px-28">
+    <div className="h-full">
+      {/* <div className="bg-blue-200 h-16  flex justify-between items-center px-4 lg:px-28">
         <h2 className="lg:pl-2 text-lg" style={{ textTransform: "uppercase" }}>
           {dataAttributes.title.toUpperCase()}
         </h2>
@@ -78,9 +78,23 @@ export default function page() {
           <span className="underline pr-4">Home</span>/
           <span className="underline pl-4">Catalogues</span>
         </p>
+      </div> */}
+      <div
+        className="bg-blue-200 h-16 flex items-center 
+      "
+      >
+        <div className="container mx-auto flex lg:justify-between justify-around">
+          <h2 className=" text-lg pl-1">
+            {" "}
+            {dataAttributes.title.toUpperCase()}
+          </h2>
+          <p className=" text-gray-400 ">
+            <span className="underline pr-4">Home</span>/
+            <span className="underline pl-4">Catalogues</span>
+          </p>
+        </div>
       </div>
-
-      <main className="max-h-full py-8">
+      <main className="container mx-auto py-8 h-full">
         <div
           className="flex mr-28 items-center py-0 px-2
          ml-auto rounded-sm c-clear-border w-56"
@@ -107,7 +121,7 @@ export default function page() {
             </span>
           </div>
         </div>
-        <section className="catalog-container max-h-full mt-2">
+        <section className=" mt-2 grid lg:grid-cols-3 grid-cols-1 mx-auto w-4/6 gap-2 lg:gap-1 ">
           {catalogs
             .filter((catalog) => {
               return search === ""
@@ -145,7 +159,10 @@ export default function page() {
           </div>
         </div>
 
-        <section className="py-4 pl-24  container mx-auto mt-2">
+        <section
+          className="py-4 pb-10 h-full grid lg:grid-cols-4 grid-cols-1
+        mx-auto mt-2 gap-3 px-20"
+        >
           {catalogs
             .filter((catalog) => {
               return search === ""

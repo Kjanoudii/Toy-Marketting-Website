@@ -53,15 +53,26 @@ export default function Page() {
   return (
     <>
       <RecaptchaProviders>
-        <div className="bg-blue-200 h-16 flex justify-between items-center px-4 lg:px-28">
+        {/* <div className="bg-blue-200 h-16 flex justify-between items-center px-4 lg:px-28">
           <h2 className="lg:pl-2 text-lg">CONTACT US</h2>
           <p className="lg:pr-2 text-gray-400 ">
             <span className="underline pr-4">Home</span>/
             <span className="underline pl-4">Contact Us</span>
           </p>
+        </div> */}
+        <div
+          className="bg-blue-200 h-16 flex  items-center "
+        >
+          <div className="container mx-auto flex lg:justify-between justify-around">
+            <h2 className=" text-lg pl-1">CONTACT US</h2>
+            <p className=" text-gray-400 ">
+              <span className="underline pr-4">Home</span>/
+              <span className="underline pl-4">Contact Us</span>
+            </p>
+          </div>
         </div>
 
-        <div className="h-full flex flex-col lg:flex-row px-2 lg:px-28 pb-8 pt-12">
+        <div className="h-full flex flex-col lg:flex-row px-2 container mx-auto pb-8 pt-12">
           <section className="w-1/2 pl-2 leading-8">
             <div className="pb-2">
               <p className="text-sm inline-block bg-blue-600 text-gray-50 py-1 px-3 font-bold">

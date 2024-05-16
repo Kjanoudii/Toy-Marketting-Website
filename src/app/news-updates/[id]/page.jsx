@@ -41,15 +41,17 @@ const apiVar = "https://api.toymarkettrading.com";
       <div className="max-h-full">
         <div
           className="bg-blue-200 h-16 flex justify-between items-center px-4 
-      lg:px-28"
+      "
         >
-          <h2 className="lg:pl-2 text-lg">NEWS & UPDATES</h2>
-          <p className="lg:pr-2 text-gray-400 ">
-            <span className="underline pr-4">Home</span>/
-            <span className="underline pl-4">News & Updates</span>
-          </p>
+          <div className="container mx-auto flex justify-between">
+            <h2 className=" text-lg">NEWS & UPDATES</h2>
+            <p className=" text-gray-400 ">
+              <span className="underline pr-4">Home</span>/
+              <span className="underline pl-4">News & Updates</span>
+            </p>
+          </div>
         </div>
-        <div className="px-28 ">
+        <div className="container mx-auto ">
           <p className="text-sm font-thin py-3 text-gray-500">
             {formatDate(itemData.attributes.date)}
           </p>
@@ -65,7 +67,7 @@ const apiVar = "https://api.toymarkettrading.com";
             {ReactHtmlParser(itemData.attributes.content)}
           </p>
           <Image
-          className="pb-6"
+            className="pb-6"
             src={`${apiVar}${itemData.attributes.image.data.attributes.url}`}
             width={400}
             height={300}

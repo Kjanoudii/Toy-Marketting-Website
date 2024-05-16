@@ -8,7 +8,7 @@ import SubscribeInput from "../control/SubscribeInput";
 export default function Footer() {
   return (
     <footer>
-      <section className="flex lg:flex-row flex-col justify-between">
+      <section className="flex lg:flex-row flex-col justify-between container mx-auto">
         <div>
           <h2>SUBSCRIBE TO OUR MAILING LIST </h2>
           <p className="text-base font-thin lg:my-5 text-slate-500 ">
@@ -20,7 +20,7 @@ export default function Footer() {
        <SubscribeInput />
       </section>
 
-      <section className="mt-8 flex lg:flex-row flex-col justify-between items-center">
+      <section className=" container mx-auto mt-8 flex lg:flex-row flex-col justify-between items-center">
         <div>
           <h2>
             <span className="text-blue-500">TOY MARKET</span> TRADING
@@ -61,7 +61,7 @@ export default function Footer() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col lg:flex-row justify-between items-center">
+      <section className="flex flex-col lg:flex-row justify-between items-center container mx-auto">
         <p className="text-sm font-thin tracking-wide mt-16">
           2024 © Toy Market Trading
         </p>

@@ -11,7 +11,7 @@ import tmtLogo from "../../assets/tmt-logo.png";
 const navLinks = [
   {
     name: "HOME",
-    href: "/home",
+    href: "/",
   },
   {
     name: "ABOUT US",
@@ -44,9 +44,9 @@ export default function Header({ setLoggedIn, loggedIn }) {
 
   return (
     <header className="h-auto bg-white">
-      <nav className="nav px-4 pt-1">
-        <div className="container flex items-center justify-between mx-0">
-          <div className="text-sm lg:pl-24 mb-5 text-gray-900">
+      <div className="nav  pt-1 container mx-auto">
+        <div className=" flex items-center justify-between mx-0">
+          <div className="text-sm mb-5 text-gray-900">
             <Image
               className="custom-img pb-4 lg:pb-0  "
               src={tmtLogo}
@@ -56,7 +56,7 @@ export default function Header({ setLoggedIn, loggedIn }) {
 
           <div
             className="hidden lg:flex flex-col ml-2 
-            pb-12 pl-96 xl:pb-0 lg:flex-row lg:space-x-7 pt-11 lg:mr-3 lg:leading-tight text-gray-700"
+            pb-12  xl:pb-0 lg:flex-row lg:space-x-7 pt-11  lg:leading-tight text-gray-700"
           >
             {navLinks.map((item, index) => {
               const isActive = pathName === item.href;
@@ -74,7 +74,8 @@ export default function Header({ setLoggedIn, loggedIn }) {
             })}
           </div>
 
-          <div className="lg:mr-0 mr-40 flex ">
+        </div>
+          {/* <div className="lg:mr-0 mr-40 flex ">
             <svg
               className="cursor-pointer lg:hidden"
               onClick={() => setShow(!show)}
@@ -107,9 +108,8 @@ export default function Header({ setLoggedIn, loggedIn }) {
             </div>
 
         
-          </div>
-        </div>
-      </nav>
+          </div> */}
+      </div>
     </header>
   );
 }

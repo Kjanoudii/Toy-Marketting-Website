@@ -154,8 +154,8 @@ export default function about() {
         </div>
       </main>
       <div className="container mx-auto">
-        <section className="h-2/5 pt-0 lg:pt-10 px-8 ">
-          <p className="text-slate-500 font-thin">
+        <section className=" pt-0 lg:pt-10 w-full lg:px-48 ">
+          <p className="text-slate-500 font-thin lg:px-14 ">
             Established in 1965, Toy Market Trading is a pioneer in the
             distribution of toys in the Lebanese market. With more than 250
             clients today across Lebanon, Toy Market Trading is the go-to
@@ -166,22 +166,23 @@ export default function about() {
             different private trade channels:
           </p>
         </section>
-        <div className="w-full flex justify-center">
-
-        <section className=" grid lg:grid-cols-3 justify-center pt-14 py-2">
-          {attributes.clients_range.map((item, index) => {
-            return <TradeChannel key={index} text={item.text} />;
-          })}
-        </section>
+        <div className="lg:w-full flex justify-center w-full">
+          <section className=" grid lg:grid-cols-3 justify-center pt-14  w-full
+          gap-y-2 py-2 lg:gap-x-2 lg:gap-y-4">
+            {attributes.clients_range.map((item, index) => {
+              return <TradeChannel key={index} text={item.text} />;
+            })}
+          </section>
         </div>
-          <div className="text-center pt-16 text-gray-600 container mx-auto">
-            <div className="line-container mt-2 inline-block relative">
-              <span className="text-3xl font-bold">SOCIAL BOX</span>
-            </div>
-          </div>
       </div>
       <div>
-        <section className="max-h-full px-5 pb-14 mx-auto justify-center container grid lg:grid-cols-3 grid-cols-1 mt-4 px-5">
+        <div className="text-center pt-16 text-gray-600 container mx-auto">
+          <span className="text-3xl font-bold">SOCIAL BOX</span>
+        </div>
+        <section
+          className="max-h-full pb-14  justify-center container mx-auto
+         lg:w-full grid lg:grid-cols-3 grid-cols-1 mt-4  gap-2 px-2"
+        >
           {attributes.social_links.map((item, index) => {
             return (
               <SocialMediaBtn

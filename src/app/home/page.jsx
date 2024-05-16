@@ -264,13 +264,16 @@ export default function page() {
         </section>
       </div>
       <div>
-        <div className="text-center mt-16 text-gray-600 container mx-auto">
-          <div className="line-container inline-block relative">
-            <span className="text-3xl font-bold ">TOY BRANDS PORTFOLIO</span>
-          </div>
+        <div className="text-center container mt-16 text-gray-600 mx-auto">
+         
+            <span className="text-3xl font-bold text-center">
+              TOY BRANDS PORTFOLIO</span>
+        
         </div>
 
         <section className=" pb-20 container mx-auto">
+            
+          <div className=" grid grid-cols-4 w-full">
           {homePageData.attributes.baby_banner.slice(10).map((item, index) => {
             if (
               item &&
@@ -292,6 +295,7 @@ export default function page() {
               return null;
             }
           })}
+                </div>
         </section>
       </div>
     </div>

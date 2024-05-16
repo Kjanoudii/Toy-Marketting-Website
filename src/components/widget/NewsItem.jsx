@@ -9,7 +9,7 @@ export default function NewsItem({ date, title, summary, imgUrl, id }) {
   const apiVar = "https://api.toymarkettrading.com";
 
   return (
-    <div className="mt-4 flex gap-5 mb-10">
+    <div className="mt-4 flex gap-5 mb-10"> 
       <div className="relative group cursor-pointer ">
         <Image src={`${apiVar}${imgUrl}`} width={196} height={220} />
         <AnimatedLayer text="READ MORE" />

@@ -34,18 +34,20 @@ export default function page() {
   if (!data) return <LoadingScreen />;
   if (error) return "error";
   return (
-    <div className="max-h-full ">
+    <div className="h-full ">
       <div
-        className="bg-blue-200 h-16 flex justify-between items-center px-4 
-      lg:px-28"
+        className="bg-blue-200 h-16 flex  items-center px-4 
+      "
       >
-        <h2 className="lg:pl-2 text-lg">NEWS & UPDATES</h2>
-        <p className="lg:pr-2 text-gray-400 ">
-          <span className="underline pr-4">Home</span>/
-          <span className="underline pl-4">News & Updates</span>
-        </p>
+        <div className="container mx-auto flex lg:justify-between justify-around ">
+          <h2 className=" text-lg">NEWS & UPDATES</h2>
+          <p className=" text-gray-400 ">
+            <span className="underline pr-4">Home</span>/
+            <span className="underline pl-4">News & Updates</span>
+          </p>
+        </div>
       </div>
-      <main className="h-full lg:px-28">
+      <main className="h-full container mx-auto">
         {newsItemsData.map((item, index) => {
           return (
             <NewsItem

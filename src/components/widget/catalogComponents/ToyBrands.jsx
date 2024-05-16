@@ -7,20 +7,22 @@ export default function ToyBrands({ name, url }) {
   const apiVar = "https://api.toymarkettrading.com";
   return (
     <div
-      className="toybrand c-thin-border inline-block shadow-outline 
-     bg-slate-100 mx-auto lg:mr-4 my-7 "
+      className="c c-thin-border  
+     bg-slate-100 mx-auto  flex flex-col justify-between lg:h-auto h-72"
     >
-      <div className="py-0 relative cursor-pointer group flex h-full justify-center items-center">
+      <div
+        className=" h-full relative cursor-pointer group flex items-center justify-center"
+      >
         <Image
-          className="block m-auto max-h-full"
+          className="block my-auto h-full "
           src={`${apiVar}${url}`}
           height={400}
-          width={600}
-          style={{ width: "100%" }}
+          width={400}
+          style={{ width: "100%", height: "auto" }}
         />
         <AnimatedLayer />
       </div>
-      <div className="bg-gray-50 m-0 c-thin-border py-2">
+      <div className="bg-gray-50 m-0 c-thin-border py-2 ">
         <p className="bg-gray-50 text-center font-bold text-lg text-gray-700">
           {name}
         </p>

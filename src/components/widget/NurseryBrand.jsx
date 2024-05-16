@@ -8,15 +8,18 @@ export default function NurseryCatalog({ name, url, className }) {
   return (
     <div
       className={`c-thin-border ${className} 
-      shadow-outline w-60 max-h-72 bg-slate-100 lg:my-2 my-1 `}
+      shadow-outline  bg-slate-100  h-78 flex flex-col justify-between`}
     >
-      <div className="relative group cursor-pointer flex h-60">
+      <div
+        className="lg:py-4 h-full lg:w-full 
+       relative cursor-pointer group flex items-center justify-center"
+      >
         <Image
-          className="block m-auto"
+          className="block my-auto h-full "
           src={`${apiVar}${url}`}
-          height={100}
-          width={115}
-          // style={{ width: "100%" }}
+          height={300}
+          width={300}
+          style={{ width: "50%", height: "auto" }}
         />
         <AnimatedLayer />
       </div>

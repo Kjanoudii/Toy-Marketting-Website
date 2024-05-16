@@ -3,8 +3,9 @@ import React from "react";
 
 export default function TradeChannel({ text }) {
   return (
-    <div className="c-trade-channel mx-auto lg:mr-4 ">
-      <p className="text-center font-thin my-4">{text}</p>
+    <div className="c-trade-channel mx-auto w-full px-3 py-2">
+      <p className="text-center font-thin flex items-center w-full
+       justify-center h-full">{text}</p>
     </div>
   );
 }

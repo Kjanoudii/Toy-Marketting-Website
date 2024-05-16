@@ -91,7 +91,7 @@ export default function about() {
   return (
     <>
       <main className="max-h-full ">
-        <div className="c-image-container flex justify-center">
+        <div className="flex justify-center w-full lg:max-h-[75%] h-full">
           <div
             onClick={prevImage}
             className="group rounded-full p-2 bg-blue-600 cursor-pointer 
@@ -131,7 +131,7 @@ export default function about() {
             />
           </div>
         </div>
-        <div className="flex justify-center py-5 z-10">
+        <div className="hidden lg:flex justify-center py-5 z-10">
           {images.map((image, index) => {
             return (
               <div

@@ -45,7 +45,7 @@ const apiVar = "https://api.toymarkettrading.com";
         >
           <div className="container mx-auto flex justify-between">
             <h2 className=" text-lg">NEWS & UPDATES</h2>
-            <p className=" text-gray-400 ">
+            <p className=" text-gray-400 lg:inline hidden">
               <span className="underline pr-4">Home</span>/
               <span className="underline pl-4">News & Updates</span>
             </p>

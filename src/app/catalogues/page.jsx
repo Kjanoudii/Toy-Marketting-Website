@@ -84,11 +84,11 @@ export default function page() {
       "
       >
         <div className="container mx-auto flex lg:justify-between justify-around">
-          <h2 className=" text-lg pl-1">
+          <h2 className=" text-lg pl-1 ">
             {" "}
             {dataAttributes.title.toUpperCase()}
           </h2>
-          <p className=" text-gray-400 ">
+          <p className=" text-gray-400 lg:inline hidden ">
             <span className="underline pr-4">Home</span>/
             <span className="underline pl-4">Catalogues</span>
           </p>
@@ -96,8 +96,8 @@ export default function page() {
       </div>
       <main className="container mx-auto py-8 h-full">
         <div
-          className="flex mr-28 items-center py-0 px-2
-         ml-auto rounded-sm c-clear-border w-56"
+          className="flex lg:mr-28 items-center py-2 lg:py-0 px-2
+         ml-auto rounded-sm c-clear-border lg:w-56 w-full justify-center"
         >
           <input
             onChange={(e) => setSearch(e.target.value)}

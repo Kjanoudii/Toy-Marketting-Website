@@ -65,7 +65,7 @@ export default function Page() {
         >
           <div className="container mx-auto flex lg:justify-between justify-around">
             <h2 className=" text-lg pl-1">CONTACT US</h2>
-            <p className=" text-gray-400 ">
+            <p className=" text-gray-400 lg:inline hidden">
               <span className="underline pr-4">Home</span>/
               <span className="underline pl-4">Contact Us</span>
             </p>

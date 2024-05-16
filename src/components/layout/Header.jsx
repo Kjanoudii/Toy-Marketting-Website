@@ -75,14 +75,14 @@ export default function Header({ setLoggedIn, loggedIn }) {
           </div>
 
         </div>
-          {/* <div className="lg:mr-0 mr-40 flex ">
+          <div className="lg:mr-0 mr-40 flex  ">
             <svg
-              className="cursor-pointer lg:hidden"
+              className="cursor-pointer lg:hidden z-50"
               onClick={() => setShow(!show)}
               xmlns="http://www.w3.org/2000/svg"
-              height="24"
+              height="30"
               viewBox="0 -960 960 960"
-              width="24"
+              width="30"
             >
               <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
             </svg>
@@ -99,6 +99,7 @@ export default function Header({ setLoggedIn, loggedIn }) {
                     className={`block py-2 px-4 hover:text-blue-600 ${
                       isActive ? "text-blue-600 font-bold" : "text-gray-800"
                     }`}
+                    onClick={()=>setShow(false)}
                     href={item.href}
                   >
                     {item.name}
@@ -108,7 +109,7 @@ export default function Header({ setLoggedIn, loggedIn }) {
             </div>
 
         
-          </div> */}
+          </div>
       </div>
     </header>
   );

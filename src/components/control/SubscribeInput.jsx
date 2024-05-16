@@ -112,7 +112,7 @@ export default function Subscribe() {
 
   return (
     <div>
-      <div className="pt-2 lg:h-12 m-0 flex items-center justify-center ">
+      <div className="pt-2 lg:h-12 m-0 flex items-center justify-center lg:px-3">
         <input
           className="bg-transparent py-2 px-4 mb-1 placeholder-gray-500 focus:outline-none"
           placeholder="Your Email Here"

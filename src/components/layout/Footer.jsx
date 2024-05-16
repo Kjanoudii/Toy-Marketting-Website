@@ -27,7 +27,7 @@ export default function Footer() {
           </h2>
 
           <ul className=" w-80 font-thin text-base tracking-wide text-slate-500 ">
-            <li className="  c-footer-links my-3">
+            <li className=" c-footer-links my-3">
               <Link href="">Home</Link>
             </li>
             <li className="c-footer-links my-3">
